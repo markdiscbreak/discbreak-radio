@@ -14,10 +14,15 @@ exports.handler = async function() {
 
     const data = await res.json();
 
+    const images = data.resources.map(img => ({
+      filename: img.public_id,
+      url: `https://res.cloudinary.com/${cloudName}/image/upload/${img.public_id}.${img.format}`
+    }));
+
     return {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(images)
     };
 
   } catch(e) {
