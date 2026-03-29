@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disc Break Radio • Just Good Music</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #365a3f;
+    --green-bright: #4a7a56;
+    --cream: #eaebed;
+    --dark: #111210;
+    --dark2: #1a1c19;
+    --dark3: #222420;
+    --mid: #2e302b;
+    --text-muted: #7a7d76;
+    --player-height: 80px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding-bottom: var(--player-height);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(17,18,16,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #2a2c28;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--cream);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .nav-logo span { color: var(--green-bright); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--cream); }
+
+  /* ── PAGES ── */
+  .page { display: none; animation: fadeIn 0.3s ease; }
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HOME ── */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(54,90,63,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(54,90,63,0.08) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(54,90,63,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(54,90,63,0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+  }
+
+  .now-playing-hero {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 40px;
+  }
+
+  .dj-circle-hero {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--green);
+    margin: 0 auto 24px;
+    cursor: pointer;
+    box-shadow: 0 0 40px rgba(54,90,63,0.3);
+    transition: box-shadow 0.3s;
+  }
+
+  .dj-circle-hero:hover { box-shadow: 0 0 60px rgba(54,90,63,0.5); }
+
+  .dj-circle-hero img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    margin-bottom: 8px;
+  }
+
+  .hero-show-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    letter-spacing: 4px;
+    color: var(--cream);
+    line-height: 1;
+  }
+
+  .hero-tagline {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 12px;
+  }
+
+  .hero-cta {
+    position: relative;
+    z-index: 2;
+    margin-top: 8px;
+  }
+
+  .btn-listen {
+    background: var(--green);
+    color: var(--cream);
+    border: none;
+    padding: 14px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-listen:hover { background: var(--green-bright); transform: translateY(-1px); }
+
+  /* home sections */
+  .home-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #2a2c28;
+    border-top: 1px solid #2a2c28;
+  }
+
+  .home-section {
+    background: var(--dark);
+    padding: 48px 40px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .section-body {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-muted);
+  }
+
+  .quick-schedule {
+    list-style: none;
+  }
+
+  .quick-schedule li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #2a2c28;
+    font-size: 13px;
+  }
+
+  .quick-schedule li:last-child { border-bottom: none; }
+
+  .quick-schedule .show-time {
+    color: var(--green-bright);
+    font-size: 11px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    margin-right: 16px;
+  }
+
+  .quick-schedule .show-name { color: var(--cream); font-weight: 500; }
+
+  .quick-schedule .show-day {
+    color: var(--text-muted);
+    font-size: 11px;
+    margin-left: auto;
+  }
+
+  /* ── SCHEDULE PAGE ── */
+  .page-header {
+    padding: 60px 40px 40px;
+    border-bottom: 1px solid #2a2c28;
+  }
+
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+
+  .page-header p {
+    color: var(--text-muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #2a2c28;
+  }
+
+  .schedule-day {
+    background: var(--dark);
+    padding: 32px 28px;
+  }
+
+  .day-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--green-bright);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #2a2c28;
+  }
+
+  .show-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid #1e201c;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 4px;
+    padding-left: 4px;
+  }
+
+  .show-row:last-child { border-bottom: none; }
+  .show-row:hover { background: rgba(54,90,63,0.08); }
+
+  .show-time-badge {
+    font-size: 11px;
+    color: var(--green-bright);
+    letter-spacing: 1px;
+    min-width: 42px;
+    font-weight: 500;
+  }
+
+  .show-info { flex: 1; }
+  .show-info .name { font-size: 13px; font-weight: 500; color: var(--cream); }
+  .show-info .type { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* vault row */
+  .vault-row {
+    background: var(--dark2);
+    padding: 16px 28px;
+    border-bottom: 1px solid #2a2c28;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .vault-badge {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--green);
+    color: var(--cream);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .vault-text { font-size: 13px; color: var(--text-muted); }
+
+  /* ── CONTRIBUTORS PAGE ── */
+  .contributors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1px;
+    background: #2a2c28;
+  }
+
+  .contributor-card {
+    background: var(--dark);
+    aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .contributor-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.3s;
+    filter: grayscale(20%);
+  }
+
+  .contributor-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
+
+  .contributor-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .contributor-card:hover .contributor-overlay { opacity: 1; }
+
+  .contributor-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: white;
+  }
+
+  .contributor-day {
+    font-size: 11px;
+    color: var(--green-bright);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* placeholder cards */
+  .contributor-placeholder {
+    background: var(--dark2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .contributor-placeholder .initials {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--cream);
+  }
+
+  .contributor-placeholder .c-name {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-align: center;
+    padding: 0 12px;
+  }
+
+  .contributor-placeholder .c-day {
+    font-size: 10px;
+    color: var(--green-bright);
+    letter-spacing: 1px;
+  }
+
+  /* ── ABOUT PAGE ── */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 60px - var(--player-height));
+  }
+
+  .about-left {
+    padding: 80px 60px;
+    border-right: 1px solid #2a2c28;
+  }
+
+  .about-right {
+    padding: 80px 60px;
+    background: var(--dark2);
+  }
+
+  .about-left h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(50px, 6vw, 90px);
+    letter-spacing: 4px;
+    line-height: 0.95;
+    margin-bottom: 32px;
+  }
+
+  .about-left h1 span { color: var(--green-bright); display: block; }
+
+  .about-body {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text-muted);
+  }
+
+  .about-body p { margin-bottom: 20px; }
+
+  .about-stat {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .stat-item {}
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 2px;
+    color: var(--green-bright);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .about-right h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+    color: var(--cream);
+  }
+
+  .contact-field {
+    margin-bottom: 20px;
+  }
+
+  .contact-field label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .contact-field input,
+  .contact-field textarea {
+    width: 100%;
+    background: var(--dark3);
+    border: 1px solid #2a2c28;
+    color: var(--cream);
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 2px;
+    resize: none;
+  }
+
+  .contact-field input:focus,
+  .contact-field textarea:focus { border-color: var(--green-bright); }
+
+  .btn-submit {
+    background: var(--green);
+    color: var(--cream);
+    border: none;
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
+
+  .btn-submit:hover { background: var(--green-bright); }
+
+  /* ── PERSISTENT PLAYER ── */
+  #player-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--player-height);
+    background: rgba(20,22,19,0.97);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid #2a2c28;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 20px;
+  }
+
+  .player-dj-img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid var(--green);
+    flex-shrink: 0;
+    transition: transform 0.1s linear;
+  }
+
+  .player-show-info { flex: 1; min-width: 0; }
+
+  .player-label {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    margin-bottom: 2px;
+  }
+
+  .player-show-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--cream);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .player-controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+
+  #playBtn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: var(--green);
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+
+  #playBtn:hover { background: var(--green-bright); transform: scale(1.05); }
+
+  .volume-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .vol-icon { font-size: 14px; color: var(--text-muted); }
+
+  #volumeSlider {
+    -webkit-appearance: none;
+    width: 90px;
+    height: 3px;
+    background: #3a3c38;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  #volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--cream);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-bright);
+    flex-shrink: 0;
+  }
+
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green-bright);
+    animation: blink 1.4s ease infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .spinning { animation: spin 5s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .playing-btn { box-shadow: 0 0 16px rgba(54,90,63,0.6); }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(54,90,63,0.4); }
+    50% { box-shadow: 0 0 24px rgba(54,90,63,0.8); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .home-sections { grid-template-columns: 1fr; }
+    .schedule-grid { grid-template-columns: 1fr; }
+    .about-layout { grid-template-columns: 1fr; }
+    .about-left, .about-right { padding: 48px 24px; }
+    nav { padding: 0 16px; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 10px; letter-spacing: 1.5px; }
+    .page-header { padding: 40px 20px 28px; }
+    .schedule-day { padding: 24px 16px; }
+    .home-section { padding: 32px 20px; }
+    #player-bar { padding: 0 16px; gap: 12px; }
+    .volume-wrap { display: none; }
+    .live-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo" onclick="showPage('home')">DISC<span>BREAK</span></span>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" onclick="showPage('schedule')" id="nav-schedule">Schedule</a></li>
+    <li><a href="#" onclick="showPage('contributors')" id="nav-contributors">Contributors</a></li>
+    <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════ HOME PAGE ═══════════════ -->
+<div class="page active" id="page-home">
+  <!-- NOTION BANNER -->
+<div id="site-banner" style="display:none; background:var(--green); color:var(--cream); text-align:center; padding:12px 24px; font-size:13px; letter-spacing:1px;">
+  <span id="banner-message"></span>
+</div>
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="now-playing-hero">
+      <div class="dj-circle-hero" id="heroCircle">
+        <img id="heroImg" src="https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/gravytrain-1920w.png" alt="Current Show">
+      </div>
+      <div class="hero-label">On Air Now</div>
+      <div class="hero-show-name" id="heroShowName">Loading...</div>
+      <div class="hero-tagline">Just Good Music • 24/7 • Manchester</div>
+    </div>
+    <div class="hero-cta">
+      <button class="btn-listen" onclick="togglePlay()">▶ &nbsp;Listen Live</button>
+    </div>
+  </div>
+
+  <div class="home-sections">
+    <div class="home-section">
+      <div class="section-label">This Week's Highlights</div>
+      <div class="section-title">On The Schedule</div>
+      <ul class="quick-schedule">
+        <li><span class="show-time">17:00</span><span class="show-name">The Gravy Train</span><span class="show-day">Fri</span></li>
+        <li><span class="show-time">18:00</span><span class="show-name">Dust Down Records</span><span class="show-day">Fri</span></li>
+        <li><span class="show-time">17:00</span><span class="show-name">DBS</span><span class="show-day">Sat</span></li>
+        <li><span class="show-time">19:00</span><span class="show-name">DJ Sol</span><span class="show-day">Sat</span></li>
+        <li><span class="show-time">17:00</span><span class="show-name">Willy</span><span class="show-day">Sun</span></li>
+        <li><span class="show-time">19:00</span><span class="show-name">Angus</span><span class="show-day">Sun</span></li>
+      </ul>
+    </div>
+    <div class="home-section">
+      <div class="section-label">About Us</div>
+      <div class="section-title">Independent Online Radio</div>
+      <p class="section-body">No ads. No algorithms. Just good music — handpicked by DJs who care. Broadcasting from Manchester to the world, 24 hours a day, 7 days a week.</p>
+      <p class="section-body" style="margin-top:12px;">Disc Break showcases mixes from established and undiscovered DJs. Want to get involved? <a href="#" onclick="showPage('about')" style="color:var(--green-bright); text-decoration:none;">Get in touch →</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SCHEDULE PAGE ═══════════════ -->
+<div class="page" id="page-schedule">
+  <div class="page-header">
+    <h1>Schedule</h1>
+    <p>All times GMT • DJs Fri–Sun • Vault Mixes & Curated Playlists Mon–Thu</p>
+  </div>
+
+  <div class="vault-row">
+    <span class="vault-badge">Mon – Thu</span>
+    <span class="vault-text">00:00 – 24:00 &nbsp;·&nbsp; Vault Mixes & Curated Playlists</span>
+  </div>
+
+  <div class="schedule-grid">
+    <div class="schedule-day">
+      <div class="day-header">Friday</div>
+      <div class="show-row"><span class="show-time-badge">17:00</span><div class="show-info"><div class="name">The Gravy Train</div><div class="type">House · Disco</div></div></div>
+      <div class="show-row"><span class="show-time-badge">18:00</span><div class="show-info"><div class="name">Dust Down Records</div><div class="type">Soul · Funk</div></div></div>
+      <div class="show-row"><span class="show-time-badge">19:00</span><div class="show-info"><div class="name">Rhythm Rotation</div><div class="type">Electronic</div></div></div>
+      <div class="show-row"><span class="show-time-badge">20:00</span><div class="show-info"><div class="name">Shi Karim</div><div class="type">Eclectic</div></div></div>
+      <div class="show-row"><span class="show-time-badge">21:00</span><div class="show-info"><div class="name">Powdersoul</div><div class="type">Deep House</div></div></div>
+      <div class="show-row"><span class="show-time-badge">22:00</span><div class="show-info"><div class="name">Mark Disc Break</div><div class="type">Mixed</div></div></div>
+    </div>
+    <div class="schedule-day">
+      <div class="day-header">Saturday</div>
+      <div class="show-row"><span class="show-time-badge">17:00</span><div class="show-info"><div class="name">DBS</div><div class="type">Electronic</div></div></div>
+      <div class="show-row"><span class="show-time-badge">18:00</span><div class="show-info"><div class="name">François de Bonsoir</div><div class="type">French Touch</div></div></div>
+      <div class="show-row"><span class="show-time-badge">19:00</span><div class="show-info"><div class="name">DJ Sol</div><div class="type">Soul · Jazz</div></div></div>
+      <div class="show-row"><span class="show-time-badge">20:00</span><div class="show-info"><div class="name">Martin Depp</div><div class="type">Mixed</div></div></div>
+      <div class="show-row"><span class="show-time-badge">21:00</span><div class="show-info"><div class="name">Mark Alcock</div><div class="type">Electronic</div></div></div>
+      <div class="show-row"><span class="show-time-badge">22:00</span><div class="show-info"><div class="name">Look Busy Collective</div><div class="type">Eclectic</div></div></div>
+    </div>
+    <div class="schedule-day">
+      <div class="day-header">Sunday</div>
+      <div class="show-row"><span class="show-time-badge">17:00</span><div class="show-info"><div class="name">Willy</div><div class="type">Mixed</div></div></div>
+      <div class="show-row"><span class="show-time-badge">18:00</span><div class="show-info"><div class="name">Semi-Detached Disco</div><div class="type">Disco · Funk</div></div></div>
+      <div class="show-row"><span class="show-time-badge">19:00</span><div class="show-info"><div class="name">Angus</div><div class="type">Electronic</div></div></div>
+      <div class="show-row"><span class="show-time-badge">20:00</span><div class="show-info"><div class="name">Alex Moore</div><div class="type">Mixed</div></div></div>
+      <div class="show-row"><span class="show-time-badge">21:00</span><div class="show-info"><div class="name">DJ GoodVibes</div><div class="type">Soulful House</div></div></div>
+      <div class="show-row"><span class="show-time-badge">22:00</span><div class="show-info"><div class="name">4 Colours</div><div class="type">Eclectic</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ CONTRIBUTORS PAGE ═══════════════ -->
+<div class="page" id="page-contributors">
+  <div class="page-header">
+    <h1>Contributors</h1>
+    <p>The DJs behind Disc Break Radio</p>
+  </div>
+  <div class="contributors-grid" id="contributorsGrid"></div>
+</div>
+
+<!-- ═══════════════ ABOUT PAGE ═══════════════ -->
+<div class="page" id="page-about">
+  <div class="about-layout">
+    <div class="about-left">
+      <h1>Just Good<span>Music.</span></h1>
+      <div class="about-body">
+        <p>Disc Break is an independent online radio station broadcasting from Manchester. No ads, no algorithms — just handpicked music from DJs who genuinely love what they play.</p>
+        <p>We started as a community project to give established and undiscovered DJs a platform. Every show is live, every mix is curated, and every track is chosen with care.</p>
+        <p>Broadcasting 24 hours a day, 7 days a week. Tune in from anywhere in the world.</p>
+      </div>
+      <div class="about-stat">
+        <div class="stat-item">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Broadcasting</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">18+</div>
+          <div class="stat-label">Contributors</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">MCR</div>
+          <div class="stat-label">Based</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-right">
+      <h2>Get Involved</h2>
+      <div class="contact-field">
+        <label>Your Name</label>
+        <input type="text" placeholder="e.g. DJ Example">
+      </div>
+      <div class="contact-field">
+        <label>Email</label>
+        <input type="email" placeholder="hello@example.com">
+      </div>
+      <div class="contact-field">
+        <label>Message</label>
+        <textarea rows="5" placeholder="Tell us about yourself and your music..."></textarea>
+      </div>
+      <button class="btn-submit">Send Message</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PERSISTENT PLAYER ═══════════════ -->
+<div id="player-bar">
+  <img class="player-dj-img" id="playerImg" src="https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/gravytrain-1920w.png" alt="">
+  <div class="player-show-info">
+    <div class="player-label">On Air Now</div>
+    <div class="player-show-name" id="playerShowName">Loading...</div>
+  </div>
+  <div class="live-badge"><div class="live-dot"></div>Live</div>
+  <div class="player-controls">
+    <div class="volume-wrap">
+      <span class="vol-icon">🔈</span>
+      <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.8">
+    </div>
+    <button id="playBtn">▶</button>
+  </div>
+</div>
+
+<audio id="radio" preload="none">
+  <source src="https://usa19.fastcast4u.com:8340/;?type=http&nocache=1774562428" type="audio/mpeg">
+</audio>
+
+<script>
+// ── NOTION BANNER ──
+async function loadBanner() {
+  try {
+    const res = await fetch('/.netlify/functions/notion');
+    const data = await res.json();
+    if (data.results && data.results.length > 0) {
+      const banner = data.results[0];
+      const message = banner.properties.Message.rich_text[0]?.plain_text;
+      if (message) {
+        document.getElementById('banner-message').innerText = message;
+        document.getElementById('site-banner').style.display = 'block';
+      }
+    }
+  } catch(e) { console.warn('Banner load failed', e); }
+}
+loadBanner();  
+// ── PAGE NAVIGATION ──
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── CONTRIBUTORS DATA ──
+const contributors = [
+  { name: 'The Gravy Train', day: 'Fri 17:00', img: 'https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/gravytrain-1920w.png' },
+  { name: 'Dust Down Records', day: 'Fri 18:00', img: '' },
+  { name: 'Rhythm Rotation', day: 'Fri 19:00', img: 'https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/Rhythm+rotation+show+image-1920w.png' },
+  { name: 'Shi Karim', day: 'Fri 20:00', img: '' },
+  { name: 'Powdersoul', day: 'Fri 21:00', img: '' },
+  { name: 'Mark Disc Break', day: 'Fri 22:00', img: '' },
+  { name: 'DBS', day: 'Sat 17:00', img: '' },
+  { name: 'François de Bonsoir', day: 'Sat 18:00', img: '' },
+  { name: 'DJ Sol', day: 'Sat 19:00', img: '' },
+  { name: 'Martin Depp', day: 'Sat 20:00', img: '' },
+  { name: 'Mark Alcock', day: 'Sat 21:00', img: '' },
+  { name: 'Look Busy Collective', day: 'Sat 22:00', img: '' },
+  { name: 'Willy', day: 'Sun 17:00', img: '' },
+  { name: 'Semi-Detached Disco', day: 'Sun 18:00', img: '' },
+  { name: 'Angus', day: 'Sun 19:00', img: '' },
+  { name: 'Alex Moore', day: 'Sun 20:00', img: '' },
+  { name: 'DJ GoodVibes', day: 'Sun 21:00', img: 'https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/DJ+Good+Vibes-1920w.png' },
+  { name: '4 Colours', day: 'Sun 22:00', img: '' },
+];
+
+function buildContributors() {
+  const grid = document.getElementById('contributorsGrid');
+  contributors.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'contributor-card';
+
+    if (c.img) {
+      card.innerHTML = `
+        <img src="${c.img}" alt="${c.name}" onerror="this.parentElement.classList.add('contributor-placeholder'); this.remove();">
+        <div class="contributor-overlay">
+          <div>
+            <div class="contributor-name">${c.name}</div>
+            <div class="contributor-day">${c.day}</div>
+          </div>
+        </div>`;
+    } else {
+      card.classList.add('contributor-placeholder');
+      const initials = c.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+      card.innerHTML = `
+        <div class="initials">${initials}</div>
+        <div class="c-name">${c.name}</div>
+        <div class="c-day">${c.day}</div>`;
+    }
+    grid.appendChild(card);
+  });
+}
+buildContributors();
+
+// ── GOOGLE SHEETS SCHEDULE ──
+let shows = [];
+const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRM_rEP_Xtl00ax3sIqhD18Gk1Z1zIEm1rG1yKJGLdwlCof2FMg1JJnRC3-ns9L0bCxr5brMbO0t2LC/pub?output=tsv&t=" + Date.now();
+
+async function fetchShows() {
+  try {
+    const res = await fetch(sheetUrl);
+    const text = await res.text();
+    const rows = text.trim().split("\n");
+    const headers = rows[0].split("\t").map(h => h.trim());
+    shows = rows.slice(1).map(row => {
+      const cols = row.split("\t");
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = (cols[i] || "").trim());
+      return obj;
+    });
+  } catch(e) { console.warn('Sheet fetch failed', e); }
+}
+
+function dayMatches(showDay, todayNum) {
+  if (showDay.toLowerCase() === "daily") return true;
+  const dayMap = { "Sun":0,"Mon":1,"Tue":2,"Wed":3,"Thu":4,"Fri":5,"Sat":6 };
+  return dayMap[showDay] === todayNum;
+}
+
+function timeMatches(start, end, h, m) {
+  const [sH,sM] = start.split(":").map(Number);
+  const [eH,eM] = end.split(":").map(Number);
+  const now = h*60+m, s = sH*60+sM, e = eH*60+eM;
+  return now >= s && now < e;
+}
+
+function getCurrentShow() {
+  const now = new Date();
+  for (const s of shows) {
+    if (dayMatches(s.Day, now.getDay()) && timeMatches(s.Start, s.End, now.getHours(), now.getMinutes())) return s;
+  }
+  return null;
+}
+
+async function updateNowPlaying() {
+  if (shows.length === 0) await fetchShows();
+  const current = getCurrentShow();
+  const name = current ? current.Show : "Vault Mixes";
+  const img = current ? (current.Image || "") : "https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/vault+mixes+NEW.png";
+
+  document.getElementById('heroShowName').innerText = name;
+  document.getElementById('playerShowName').innerText = name;
+  if (img) {
+    document.getElementById('heroImg').src = img;
+    document.getElementById('playerImg').src = img;
+  }
+
+  if (current && current.Link && current.Link !== '#') {
+    document.getElementById('heroCircle').onclick = () => window.open(current.Link, '_blank');
+  }
+}
+
+updateNowPlaying();
+setInterval(updateNowPlaying, 30000);
+
+// ── AUDIO PLAYER ──
+const audio = document.getElementById("radio");
+const btn = document.getElementById("playBtn");
+const vol = document.getElementById("volumeSlider");
+const playerImg = document.getElementById("playerImg");
+let isPlaying = false;
+
+audio.volume = 0.8;
+
+function togglePlay() {
+  if (!isPlaying) {
+    audio.play();
+    btn.innerHTML = "⏸";
+    btn.classList.add("playing-btn");
+    playerImg.classList.add("spinning");
+    document.getElementById('heroImg').classList.add("spinning");
+    isPlaying = true;
+  } else {
+    audio.pause();
+    btn.innerHTML = "▶";
+    btn.classList.remove("playing-btn");
+    playerImg.classList.remove("spinning");
+    document.getElementById('heroImg').classList.remove("spinning");
+    isPlaying = false;
+  }
+}
+
+btn.addEventListener("click", togglePlay);
+vol.addEventListener("input", () => { audio.volume = vol.value; });
+
+// prevent nav link default
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', e => e.preventDefault());
+});
+</script>
+</body>
+</html>
