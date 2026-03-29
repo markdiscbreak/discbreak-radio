@@ -807,7 +807,13 @@ function timeMatches(s,e,h,m) {
   const [sH,sM]=s.split(":").map(Number);
   const [eH,eM]=e.split(":").map(Number);
   const now=h*60+m;
-  return now>=sH*60+sM && now<eH*60+eM;
+  const start=sH*60+sM;
+  const end=eH*60+eM;
+  // Handle shows crossing midnight (e.g. 22:00 - 00:00)
+  if(end === 0 || end < start) {
+    return now >= start || now < (end === 0 ? 1440 : end);
+  }
+  return now>=start && now<end;
 }
 function getCurrentShow() {
   const { hours, minutes, day } = getUKTime();
