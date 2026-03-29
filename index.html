@@ -676,7 +676,7 @@ function buildQuickSchedule() {
   else { key = 'fri'; label = "Friday's Schedule"; dayName = 'Fri'; } // Mon-Fri all show Friday
 
   document.getElementById('scheduleLabel').innerText = label;
-  document.getElementById('scheduleDayTitle').innerText = dayName === 'Fri' && day !== 5 ? 'Coming Up Friday' : 'On The Schedule';
+  document.getElementById('scheduleDayTitle').innerText = dayName === 'Fri' && day !== 5 ? 'Coming Up Friday' : 'on the schedule';
 
   const ul = document.getElementById('quickSchedule');
   ul.innerHTML = '';
