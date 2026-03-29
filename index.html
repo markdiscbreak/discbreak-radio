@@ -20,6 +20,8 @@
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
+html, body { overflow-x: hidden; width: 100%; }
+
 body {
   background: var(--green);
   color: var(--cream);
@@ -172,7 +174,7 @@ nav {
 /* ── CONTRIBUTORS GRID ── */
 .contributors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 .contrib-card {
   aspect-ratio: 1; overflow: hidden; position: relative;
@@ -279,7 +281,7 @@ nav {
 .profile-close:hover { background: var(--cream); color: var(--green); }
 
 /* ── ABOUT ── */
-.about-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 64px - var(--player-height)); }
+.about-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: auto; }
 .about-left { padding: 60px 32px; border-right: var(--border); }
 .about-left h1 { font-size: clamp(48px, 6vw, 88px); font-weight: 900; font-style: italic; line-height: 0.95; color: var(--cream); margin-bottom: 28px; }
 .about-body { font-size: 15px; font-style: italic; line-height: 1.9; color: var(--cream-dim); }
@@ -336,6 +338,10 @@ nav {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
+  .contributors-grid { grid-template-columns: repeat(2, 1fr); }
+  .profile-box { max-height: 90vh; margin: 0; }
+  .home-grid, .about-wrap { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 36px; }
   nav { padding: 0 16px; }
   .nav-links a { padding: 8px 12px; font-size: 11px; }
   .hero { grid-template-columns: 1fr; gap: 24px; padding: 32px 16px; }
