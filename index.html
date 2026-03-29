@@ -443,6 +443,7 @@ nav {
   <a href="#" onclick="showPage('schedule');closeMenu()" id="mob-schedule">Schedule</a>
   <a href="#" onclick="showPage('contributors');closeMenu()" id="mob-contributors">Contributors</a>
   <a href="#" onclick="showPage('about');closeMenu()" id="mob-about">About</a>
+  <a href="#" onclick="showPage('contact');closeMenu()" id="mob-contact">Contact</a>
 </div>
 
 <!-- NOTION BANNER -->
@@ -458,6 +459,7 @@ nav {
     <li><a href="#" onclick="showPage('schedule')" id="nav-schedule">Schedule</a></li>
     <li><a href="#" onclick="showPage('contributors')" id="nav-contributors">Contributors</a></li>
     <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -509,30 +511,30 @@ nav {
   <div class="schedule-cols">
     <div class="sched-col">
       <div class="day-title">Friday</div>
-      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Gravy Train')">The Gravy Train</div><div class="show-g">House · Disco</div></div></div>
-      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Dust Down Records')">Dust Down Records</div><div class="show-g">Soul · Funk</div></div></div>
-      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Rhythm Rotation')">Rhythm Rotation</div><div class="show-g">Electronic</div></div></div>
-      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Shi Karim')">Shi Karim</div><div class="show-g">Eclectic</div></div></div>
-      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Powdersoul')">Powdersoul</div><div class="show-g">Deep House</div></div></div>
-      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Mark Disc Break')">Mark Disc Break</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Gravy Train')">The Gravy Train</div><div class="show-g">House · Disco</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Dust Down Records')">Dust Down Records</div><div class="show-g">Soul · Funk</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Rhythm Rotation')">Rhythm Rotation</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Shi Karim')">Shi Karim</div><div class="show-g">Eclectic</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Powdersoul')">Powdersoul</div><div class="show-g">Deep House</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Mark Disc Break')">Mark Disc Break</div><div class="show-g">Mixed</div></div></div>
     </div>
     <div class="sched-col">
       <div class="day-title">Saturday</div>
-      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Disco Borisco Soundsystem')">DBS</div><div class="show-g">Electronic</div></div></div>
-      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('François de Bonsoir')">François de Bonsoir</div><div class="show-g">French Touch</div></div></div>
-      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('DJ Sol')">DJ Sol</div><div class="show-g">Soul · Jazz</div></div></div>
-      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Martin Depp')">Martin Depp</div><div class="show-g">Mixed</div></div></div>
-      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Mark Alcock')">Mark Alcock</div><div class="show-g">Electronic</div></div></div>
-      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Look Busy Collective')">Look Busy Collective</div><div class="show-g">Eclectic</div></div></div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Disco Borisco Soundsystem')">DBS</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('François de Bonsoir')">François de Bonsoir</div><div class="show-g">French Touch</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('DJ Sol')">DJ Sol</div><div class="show-g">Soul · Jazz</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Martin Depp')">Martin Depp</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Mark Alcock')">Mark Alcock</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Look Busy Collective')">Look Busy Collective</div><div class="show-g">Eclectic</div></div></div>
     </div>
     <div class="sched-col">
       <div class="day-title">Sunday</div>
-      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Willy')">Willy</div><div class="show-g">Mixed</div></div></div>
-      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Semi-Detached Disco')">Semi-Detached Disco</div><div class="show-g">Disco · Funk</div></div></div>
-      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Angus')">Angus</div><div class="show-g">Electronic</div></div></div>
-      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('Alex Moore')">Alex Moore</div><div class="show-g">Mixed</div></div></div>
-      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('DJ GoodVibes')">DJ GoodVibes</div><div class="show-g">Soulful House</div></div></div>
-      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;text-decoration:underline;text-underline-offset:3px;" onclick="openProfileByName('4 Colours')">4 Colours</div><div class="show-g">Eclectic</div></div></div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Willy')">Willy</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Semi-Detached Disco')">Semi-Detached Disco</div><div class="show-g">Disco · Funk</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Angus')">Angus</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Alex Moore')">Alex Moore</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('DJ GoodVibes')">DJ GoodVibes</div><div class="show-g">Soulful House</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('4 Colours')">4 Colours</div><div class="show-g">Eclectic</div></div></div>
     </div>
   </div>
 </div>
@@ -550,20 +552,38 @@ nav {
 <div class="page" id="page-about">
   <div class="about-wrap">
     <div class="about-left">
-      <h1>just good music.</h1>
+      <h1>a long time ago in manchester...</h1>
       <div class="about-body">
-        <p>Disc Break is an independent online radio station broadcasting from Manchester. No ads, no algorithms — just handpicked music from DJs who genuinely love what they play.</p>
-        <p>We started as a community project to give established and undiscovered DJs a platform. Every show is live, every mix is curated, and every track is chosen with care.</p>
-        <p>Broadcasting 24 hours a day, 7 days a week. Tune in from anywhere in the world.</p>
-      </div>
-      <div class="about-stats">
-        <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Broadcasting</div></div>
-        <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Contributors</div></div>
-        <div class="stat"><div class="stat-n">MCR</div><div class="stat-l">Based</div></div>
+        <p>disc break started as a monthly live music & dj night in the basement of font bar, manchester, back in 2002.</p>
+        <p>later moving to simple bar on tib street, for a 6-year friday night residency.</p>
+        <p>now, disc break radio has been reanimated as an online radio station. a platform for djs, presenters, selectors, and music lovers.</p>
+        <p>the station is dance music orientated, covering house to hip-hop, soul, jazz and funk from all corners of the globe.</p>
+        <p>based in stockport, manchester, but boasting an international lineup of djs, disc break is a 24/7 online radio station.</p>
+        <p>no ads. just good music.</p>
+        <p>disc break hosts playlists, guest dj mixes, and label showcases from some of the best underground and undiscovered selectors.</p>
       </div>
     </div>
     <div class="about-right">
-      <h2>get involved</h2>
+      <img src="https://res.cloudinary.com/db5yf8okw/image/upload/v1774820713/old_disc_break_flyer_ytr7mj.jpg" alt="Original Disc Break flyer, 2002" style="width:100%; border: var(--border); display:block; margin-bottom: 16px;">
+      <p style="font-size:11px; font-style:italic; color:var(--cream-dim); letter-spacing:1px;">original disc break flyer, 2002 · the font bar, manchester</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<div class="page" id="page-contact">
+  <div class="about-wrap">
+    <div class="about-left">
+      <h1>get involved.</h1>
+      <div class="about-body">
+        <p>interested in getting involved?</p>
+        <p>if you're interested in getting involved and would like exposure on the station, get in touch and help us grow a network of like-minded djs & music lovers.</p>
+        <p>we are always looking for djs and selectors to contribute to our growing schedule.</p>
+        <p>start the ball rolling by leaving your details below. x</p>
+      </div>
+    </div>
+    <div class="about-right">
+      <h2>drop us a line</h2>
       <div class="field"><label>Your Name</label><input type="text" placeholder="e.g. DJ Example"></div>
       <div class="field"><label>Email</label><input type="email" placeholder="hello@example.com"></div>
       <div class="field"><label>Message</label><textarea rows="5" placeholder="tell us about yourself and your music..."></textarea></div>
@@ -662,7 +682,7 @@ function buildQuickSchedule() {
   ul.innerHTML = '';
   daySchedules[key].forEach(s => {
     const li = document.createElement('li');
-    li.innerHTML = `<span class="qs-time">${s.time}</span><span class="qs-name" style="text-decoration:underline;text-underline-offset:3px;">${s.name}</span><span class="qs-day">${dayName}</span>`;
+    li.innerHTML = `<span class="qs-time">${s.time}</span><span class="qs-name" >${s.name}</span><span class="qs-day">${dayName}</span>`;
     li.onclick = () => openProfileByName(s.name);
     ul.appendChild(li);
   });
