@@ -4,701 +4,683 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Disc Break Radio • Just Good Music</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green: #365a3f;
-    --green-bright: #4a7a56;
-    --cream: #eaebed;
-    --dark: #111210;
-    --dark2: #1a1c19;
-    --dark3: #222420;
-    --mid: #2e302b;
-    --text-muted: #7a7d76;
-    --player-height: 80px;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--dark);
-    color: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    padding-bottom: var(--player-height);
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(17,18,16,0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid #2a2c28;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
-    height: 60px;
-  }
-
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 3px;
-    color: var(--cream);
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .nav-logo span { color: var(--green-bright); }
-
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover,
-  .nav-links a.active { color: var(--cream); }
-
-  /* ── PAGES ── */
-  .page { display: none; animation: fadeIn 0.3s ease; }
-  .page.active { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── HOME ── */
-  .hero {
-    position: relative;
-    min-height: 88vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 60px 24px;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(54,90,63,0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(54,90,63,0.08) 0%, transparent 60%);
-  }
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(54,90,63,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(54,90,63,0.06) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-  }
-
-  .now-playing-hero {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 40px;
-  }
-
-  .dj-circle-hero {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid var(--green);
-    margin: 0 auto 24px;
-    cursor: pointer;
-    box-shadow: 0 0 40px rgba(54,90,63,0.3);
-    transition: box-shadow 0.3s;
-  }
-
-  .dj-circle-hero:hover { box-shadow: 0 0 60px rgba(54,90,63,0.5); }
-
-  .dj-circle-hero img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
-  .hero-label {
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--green-bright);
-    margin-bottom: 8px;
-  }
-
-  .hero-show-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 7vw, 72px);
-    letter-spacing: 4px;
-    color: var(--cream);
-    line-height: 1;
-  }
-
-  .hero-tagline {
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-top: 12px;
-  }
-
-  .hero-cta {
-    position: relative;
-    z-index: 2;
-    margin-top: 8px;
-  }
-
-  .btn-listen {
-    background: var(--green);
-    color: var(--cream);
-    border: none;
-    padding: 14px 40px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-  }
-
-  .btn-listen:hover { background: var(--green-bright); transform: translateY(-1px); }
-
-  /* home sections */
-  .home-sections {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: #2a2c28;
-    border-top: 1px solid #2a2c28;
-  }
-
-  .home-section {
-    background: var(--dark);
-    padding: 48px 40px;
-  }
-
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--green-bright);
-    margin-bottom: 20px;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-  }
-
-  .section-body {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--text-muted);
-  }
-
-  .quick-schedule {
-    list-style: none;
-  }
-
-  .quick-schedule li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #2a2c28;
-    font-size: 13px;
-  }
-
-  .quick-schedule li:last-child { border-bottom: none; }
-
-  .quick-schedule .show-time {
-    color: var(--green-bright);
-    font-size: 11px;
-    letter-spacing: 1px;
-    flex-shrink: 0;
-    margin-right: 16px;
-  }
-
-  .quick-schedule .show-name { color: var(--cream); font-weight: 500; }
-
-  .quick-schedule .show-day {
-    color: var(--text-muted);
-    font-size: 11px;
-    margin-left: auto;
-  }
-
-  /* ── SCHEDULE PAGE ── */
-  .page-header {
-    padding: 60px 40px 40px;
-    border-bottom: 1px solid #2a2c28;
-  }
-
-  .page-header h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(40px, 6vw, 80px);
-    letter-spacing: 4px;
-    line-height: 1;
-  }
-
-  .page-header p {
-    color: var(--text-muted);
-    font-size: 13px;
-    letter-spacing: 1px;
-    margin-top: 8px;
-  }
-
-  .schedule-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: #2a2c28;
-  }
-
-  .schedule-day {
-    background: var(--dark);
-    padding: 32px 28px;
-  }
-
-  .day-header {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 3px;
-    color: var(--green-bright);
-    margin-bottom: 24px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #2a2c28;
-  }
-
-  .show-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 12px 0;
-    border-bottom: 1px solid #1e201c;
-    cursor: pointer;
-    transition: background 0.15s;
-    border-radius: 4px;
-    padding-left: 4px;
-  }
-
-  .show-row:last-child { border-bottom: none; }
-  .show-row:hover { background: rgba(54,90,63,0.08); }
-
-  .show-time-badge {
-    font-size: 11px;
-    color: var(--green-bright);
-    letter-spacing: 1px;
-    min-width: 42px;
-    font-weight: 500;
-  }
-
-  .show-info { flex: 1; }
-  .show-info .name { font-size: 13px; font-weight: 500; color: var(--cream); }
-  .show-info .type { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-  /* vault row */
-  .vault-row {
-    background: var(--dark2);
-    padding: 16px 28px;
-    border-bottom: 1px solid #2a2c28;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .vault-badge {
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: var(--green);
-    color: var(--cream);
-    padding: 3px 8px;
-    border-radius: 2px;
-  }
-
-  .vault-text { font-size: 13px; color: var(--text-muted); }
-
-  /* ── CONTRIBUTORS PAGE ── */
-  .contributors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1px;
-    background: #2a2c28;
-  }
-
-  .contributor-card {
-    background: var(--dark);
-    aspect-ratio: 1;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .contributor-card img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease, filter 0.3s;
-    filter: grayscale(20%);
-  }
-
-  .contributor-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
-
-  .contributor-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
-    display: flex;
-    align-items: flex-end;
-    padding: 20px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .contributor-card:hover .contributor-overlay { opacity: 1; }
-
-  .contributor-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 2px;
-    color: white;
-  }
-
-  .contributor-day {
-    font-size: 11px;
-    color: var(--green-bright);
-    letter-spacing: 1px;
-    margin-top: 2px;
-  }
-
-  /* placeholder cards */
-  .contributor-placeholder {
-    background: var(--dark2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .contributor-placeholder .initials {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    background: var(--green);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 2px;
-    color: var(--cream);
-  }
-
-  .contributor-placeholder .c-name {
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--cream);
-    text-align: center;
-    padding: 0 12px;
-  }
-
-  .contributor-placeholder .c-day {
-    font-size: 10px;
-    color: var(--green-bright);
-    letter-spacing: 1px;
-  }
-
-  /* ── ABOUT PAGE ── */
-  .about-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: calc(100vh - 60px - var(--player-height));
-  }
-
-  .about-left {
-    padding: 80px 60px;
-    border-right: 1px solid #2a2c28;
-  }
-
-  .about-right {
-    padding: 80px 60px;
-    background: var(--dark2);
-  }
-
-  .about-left h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(50px, 6vw, 90px);
-    letter-spacing: 4px;
-    line-height: 0.95;
-    margin-bottom: 32px;
-  }
-
-  .about-left h1 span { color: var(--green-bright); display: block; }
-
-  .about-body {
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--text-muted);
-  }
-
-  .about-body p { margin-bottom: 20px; }
-
-  .about-stat {
-    margin-top: 48px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .stat-item {}
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    letter-spacing: 2px;
-    color: var(--green-bright);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-
-  .about-right h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 3px;
-    margin-bottom: 24px;
-    color: var(--cream);
-  }
-
-  .contact-field {
-    margin-bottom: 20px;
-  }
-
-  .contact-field label {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-  }
-
-  .contact-field input,
-  .contact-field textarea {
-    width: 100%;
-    background: var(--dark3);
-    border: 1px solid #2a2c28;
-    color: var(--cream);
-    padding: 12px 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    border-radius: 2px;
-    resize: none;
-  }
-
-  .contact-field input:focus,
-  .contact-field textarea:focus { border-color: var(--green-bright); }
-
-  .btn-submit {
-    background: var(--green);
-    color: var(--cream);
-    border: none;
-    padding: 14px 32px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 8px;
-  }
-
-  .btn-submit:hover { background: var(--green-bright); }
-
-  /* ── PERSISTENT PLAYER ── */
-  #player-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: var(--player-height);
-    background: rgba(20,22,19,0.97);
-    backdrop-filter: blur(16px);
-    border-top: 1px solid #2a2c28;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    padding: 0 28px;
-    gap: 20px;
-  }
-
-  .player-dj-img {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1.5px solid var(--green);
-    flex-shrink: 0;
-    transition: transform 0.1s linear;
-  }
-
-  .player-show-info { flex: 1; min-width: 0; }
-
-  .player-label {
-    font-size: 9px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--green-bright);
-    margin-bottom: 2px;
-  }
-
-  .player-show-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 2px;
-    color: var(--cream);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .player-controls {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex-shrink: 0;
-  }
-
-  #playBtn {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: none;
-    background: var(--green);
-    color: white;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    flex-shrink: 0;
-  }
-
-  #playBtn:hover { background: var(--green-bright); transform: scale(1.05); }
-
-  .volume-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .vol-icon { font-size: 14px; color: var(--text-muted); }
-
-  #volumeSlider {
-    -webkit-appearance: none;
-    width: 90px;
-    height: 3px;
-    background: #3a3c38;
-    border-radius: 2px;
-    cursor: pointer;
-    outline: none;
-  }
-
-  #volumeSlider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    background: var(--cream);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .live-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--green-bright);
-    flex-shrink: 0;
-  }
-
-  .live-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--green-bright);
-    animation: blink 1.4s ease infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.2; }
-  }
-
-  .spinning { animation: spin 5s linear infinite; }
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-  .playing-btn { box-shadow: 0 0 16px rgba(54,90,63,0.6); }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 8px rgba(54,90,63,0.4); }
-    50% { box-shadow: 0 0 24px rgba(54,90,63,0.8); }
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .home-sections { grid-template-columns: 1fr; }
-    .schedule-grid { grid-template-columns: 1fr; }
-    .about-layout { grid-template-columns: 1fr; }
-    .about-left, .about-right { padding: 48px 24px; }
-    nav { padding: 0 16px; }
-    .nav-links { gap: 16px; }
-    .nav-links a { font-size: 10px; letter-spacing: 1.5px; }
-    .page-header { padding: 40px 20px 28px; }
-    .schedule-day { padding: 24px 16px; }
-    .home-section { padding: 32px 20px; }
-    #player-bar { padding: 0 16px; gap: 12px; }
-    .volume-wrap { display: none; }
-    .live-badge { display: none; }
-  }
+@font-face {
+  font-family: 'Avenir';
+  src: url('Avenir.ttc') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('Avenir.ttc') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+:root {
+  --green: #365b3f;
+  --green-dark: #2a4731;
+  --green-light: #4a7a56;
+  --cream: #eaebed;
+  --cream-dim: rgba(234,235,237,0.55);
+  --cream-faint: rgba(234,235,237,0.12);
+  --border: 2px solid #eaebed;
+  --player-height: 78px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--green);
+  color: var(--cream);
+  font-family: 'Avenir', sans-serif;
+  font-style: italic;
+  min-height: 100vh;
+  padding-bottom: var(--player-height);
+  overflow-x: hidden;
+}
+
+/* ── NOTION BANNER ── */
+#site-banner {
+  display: none;
+  background: var(--cream);
+  color: var(--green);
+  text-align: left;
+  padding: 10px 32px;
+  font-size: 13px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  border-bottom: var(--border);
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--green);
+  border-bottom: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 64px;
+}
+
+.nav-logo {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo img {
+  height: 44px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 1px;
+  color: var(--cream-dim);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 8px 20px;
+  border: var(--border);
+  border-color: transparent;
+  margin-left: -2px;
+}
+
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active {
+  color: var(--cream);
+  border-color: var(--cream);
+}
+
+/* ── PAGES ── */
+.page { display: none; animation: fadeIn 0.25s ease; }
+.page.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── HOME ── */
+.hero {
+  padding: 56px 32px 48px;
+  border-bottom: var(--border);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+
+.dj-circle-hero {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: var(--border);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.dj-circle-hero img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.hero-right { padding: 8px 0; }
+
+.on-air-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--cream);
+  animation: blink 1.4s ease infinite;
+  display: inline-block;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+.hero-show-name {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 800;
+  font-style: italic;
+  line-height: 0.95;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+
+.hero-tagline {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--cream-dim);
+  margin-bottom: 28px;
+}
+
+.btn-listen {
+  background: transparent;
+  color: var(--cream);
+  border: var(--border);
+  padding: 12px 28px;
+  font-family: 'Avenir', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-listen:hover {
+  background: var(--cream);
+  color: var(--green);
+}
+
+/* home bottom grid */
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: var(--border);
+}
+
+.home-panel {
+  padding: 40px 32px;
+  border-right: var(--border);
+}
+
+.home-panel:last-child { border-right: none; }
+
+.panel-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-bottom: 16px;
+}
+
+.panel-title {
+  font-size: 28px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.panel-body {
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--cream-dim);
+}
+
+.panel-body a {
+  color: var(--cream);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.quick-schedule { list-style: none; margin-top: 4px; }
+
+.quick-schedule li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(234,235,237,0.15);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.quick-schedule li:last-child { border-bottom: none; }
+
+.qs-time {
+  color: var(--cream-dim);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  min-width: 38px;
+}
+
+.qs-name { color: var(--cream); font-weight: 800; flex: 1; }
+.qs-day { color: var(--cream-dim); font-size: 11px; letter-spacing: 1px; }
+
+/* ── SCHEDULE ── */
+.page-header {
+  padding: 48px 32px 32px;
+  border-bottom: var(--border);
+}
+
+.page-header h1 {
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 800;
+  font-style: italic;
+  line-height: 0.95;
+  color: var(--cream);
+}
+
+.page-header p {
+  color: var(--cream-dim);
+  font-size: 13px;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.vault-banner {
+  padding: 14px 32px;
+  border-bottom: var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--cream-faint);
+}
+
+.vault-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: var(--border);
+  padding: 3px 10px;
+  color: var(--cream);
+  white-space: nowrap;
+}
+
+.vault-desc { font-size: 13px; font-style: italic; color: var(--cream-dim); }
+
+.schedule-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.sched-col {
+  padding: 32px 28px;
+  border-right: var(--border);
+}
+
+.sched-col:last-child { border-right: none; }
+
+.day-title {
+  font-size: 32px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: var(--border);
+}
+
+.show-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(234,235,237,0.12);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.show-item:last-child { border-bottom: none; }
+.show-item:hover { opacity: 0.75; }
+
+.show-t {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cream-dim);
+  letter-spacing: 1px;
+  min-width: 40px;
+  padding-top: 2px;
+}
+
+.show-n { font-size: 14px; font-weight: 800; font-style: italic; color: var(--cream); }
+.show-g { font-size: 11px; font-style: italic; color: var(--cream-dim); margin-top: 2px; }
+
+/* ── CONTRIBUTORS ── */
+.contributors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.contrib-card {
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border-right: var(--border);
+  border-bottom: var(--border);
+}
+
+.contrib-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  filter: saturate(0.85);
+}
+
+.contrib-card:hover img { transform: scale(1.04); filter: saturate(1); }
+
+.contrib-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(35,70,44,0.92) 0%, transparent 55%);
+  display: flex;
+  align-items: flex-end;
+  padding: 18px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.contrib-card:hover .contrib-overlay { opacity: 1; }
+.contrib-name { font-size: 18px; font-weight: 800; font-style: italic; color: var(--cream); }
+.contrib-slot { font-size: 11px; color: var(--cream-dim); letter-spacing: 1px; margin-top: 2px; }
+
+.contrib-placeholder {
+  background: var(--cream-faint);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 18px;
+  gap: 4px;
+}
+
+.placeholder-init {
+  font-size: 36px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--cream-dim);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.placeholder-name { font-size: 14px; font-weight: 800; font-style: italic; color: var(--cream); }
+.placeholder-slot { font-size: 11px; color: var(--cream-dim); letter-spacing: 1px; }
+
+/* ── ABOUT ── */
+.about-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 64px - var(--player-height));
+}
+
+.about-left {
+  padding: 60px 32px;
+  border-right: var(--border);
+}
+
+.about-left h1 {
+  font-size: clamp(48px, 6vw, 88px);
+  font-weight: 800;
+  font-style: italic;
+  line-height: 0.95;
+  color: var(--cream);
+  margin-bottom: 28px;
+}
+
+.about-body {
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.9;
+  color: var(--cream-dim);
+}
+
+.about-body p { margin-bottom: 18px; }
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  margin-top: 40px;
+  border: var(--border);
+}
+
+.stat {
+  padding: 20px 16px;
+  border-right: var(--border);
+}
+
+.stat:last-child { border-right: none; }
+
+.stat-n {
+  font-size: 40px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1;
+}
+
+.stat-l {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-top: 4px;
+}
+
+.about-right { padding: 60px 32px; }
+
+.about-right h2 {
+  font-size: 32px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 28px;
+}
+
+.field { margin-bottom: 20px; }
+
+.field label {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-bottom: 8px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background: transparent;
+  border: var(--border);
+  color: var(--cream);
+  padding: 11px 14px;
+  font-family: 'Avenir', sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  outline: none;
+  transition: background 0.2s;
+  resize: none;
+}
+
+.field input:focus,
+.field textarea:focus { background: var(--cream-faint); }
+
+.field input::placeholder,
+.field textarea::placeholder { color: var(--cream-dim); }
+
+.btn-submit {
+  background: transparent;
+  color: var(--cream);
+  border: var(--border);
+  padding: 12px 28px;
+  font-family: 'Avenir', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 4px;
+}
+
+.btn-submit:hover { background: var(--cream); color: var(--green); }
+
+/* ── PLAYER BAR ── */
+#player-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--player-height);
+  background: var(--green-dark);
+  border-top: var(--border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+}
+
+.player-img {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: var(--border);
+  flex-shrink: 0;
+}
+
+.player-info { flex: 1; min-width: 0; }
+
+.player-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.player-show {
+  font-size: 17px;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.vol-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vol-icon { font-size: 13px; color: var(--cream-dim); }
+
+#volumeSlider {
+  -webkit-appearance: none;
+  width: 88px; height: 2px;
+  background: var(--cream-dim);
+  border-radius: 1px;
+  cursor: pointer;
+  outline: none;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  background: var(--cream);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#playBtn {
+  width: 44px; height: 44px;
+  border: var(--border);
+  background: transparent;
+  color: var(--cream);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+#playBtn:hover { background: var(--cream); color: var(--green); }
+#playBtn.playing { background: var(--cream); color: var(--green); }
+
+.spinning { animation: spin 5s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 16px; }
+  .nav-links a { padding: 8px 12px; font-size: 12px; }
+  .hero { grid-template-columns: 1fr; gap: 24px; padding: 32px 16px; }
+  .dj-circle-hero { width: 130px; height: 130px; }
+  .home-grid { grid-template-columns: 1fr; }
+  .home-panel { border-right: none; border-bottom: var(--border); }
+  .schedule-cols { grid-template-columns: 1fr; }
+  .sched-col { border-right: none; border-bottom: var(--border); }
+  .about-wrap { grid-template-columns: 1fr; }
+  .about-left { border-right: none; border-bottom: var(--border); }
+  .page-header { padding: 32px 16px 24px; }
+  #player-bar { padding: 0 16px; gap: 12px; }
+  .vol-wrap { display: none; }
+}
 </style>
 </head>
 <body>
 
+<!-- NOTION BANNER -->
+<div id="site-banner">
+  <span id="banner-message"></span>
+</div>
+
 <!-- NAV -->
 <nav>
-  <span class="nav-logo" onclick="showPage('home')">DISC<span>BREAK</span></span>
+  <div class="nav-logo" onclick="showPage('home')">
+    <img src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio">
+  </div>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
     <li><a href="#" onclick="showPage('schedule')" id="nav-schedule">Schedule</a></li>
@@ -707,94 +689,88 @@
   </ul>
 </nav>
 
-<!-- ═══════════════ HOME PAGE ═══════════════ -->
+<!-- ══════════════ HOME ══════════════ -->
 <div class="page active" id="page-home">
-  <!-- NOTION BANNER -->
-<div id="site-banner" style="display:none; background:var(--green); color:var(--cream); text-align:center; padding:12px 24px; font-size:13px; letter-spacing:1px;">
-  <span id="banner-message"></span>
-</div>
   <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="now-playing-hero">
+    <div class="hero-left">
       <div class="dj-circle-hero" id="heroCircle">
-        <img id="heroImg" src="https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/gravytrain-1920w.png" alt="Current Show">
+        <img id="heroImg" src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/vault+mixes+NEW.png" alt="Now Playing">
       </div>
-      <div class="hero-label">On Air Now</div>
-      <div class="hero-show-name" id="heroShowName">Loading...</div>
-      <div class="hero-tagline">Just Good Music • 24/7 • Manchester</div>
     </div>
-    <div class="hero-cta">
-      <button class="btn-listen" onclick="togglePlay()">▶ &nbsp;Listen Live</button>
+    <div class="hero-right">
+      <div class="on-air-label"><span class="live-dot"></span> On Air Now</div>
+      <div class="hero-show-name" id="heroShowName">Loading...</div>
+      <div class="hero-tagline">just good music · 24/7 · manchester</div>
+      <button class="btn-listen" onclick="togglePlay()">
+        <span id="listenBtnText">▶ listen live</span>
+      </button>
     </div>
   </div>
 
-  <div class="home-sections">
-    <div class="home-section">
-      <div class="section-label">This Week's Highlights</div>
-      <div class="section-title">On The Schedule</div>
+  <div class="home-grid">
+    <div class="home-panel">
+      <div class="panel-label">This Week</div>
+      <div class="panel-title">On The Schedule</div>
       <ul class="quick-schedule">
-        <li><span class="show-time">17:00</span><span class="show-name">The Gravy Train</span><span class="show-day">Fri</span></li>
-        <li><span class="show-time">18:00</span><span class="show-name">Dust Down Records</span><span class="show-day">Fri</span></li>
-        <li><span class="show-time">17:00</span><span class="show-name">DBS</span><span class="show-day">Sat</span></li>
-        <li><span class="show-time">19:00</span><span class="show-name">DJ Sol</span><span class="show-day">Sat</span></li>
-        <li><span class="show-time">17:00</span><span class="show-name">Willy</span><span class="show-day">Sun</span></li>
-        <li><span class="show-time">19:00</span><span class="show-name">Angus</span><span class="show-day">Sun</span></li>
+        <li><span class="qs-time">17:00</span><span class="qs-name">The Gravy Train</span><span class="qs-day">Fri</span></li>
+        <li><span class="qs-time">18:00</span><span class="qs-name">Dust Down Records</span><span class="qs-day">Fri</span></li>
+        <li><span class="qs-time">17:00</span><span class="qs-name">DBS</span><span class="qs-day">Sat</span></li>
+        <li><span class="qs-time">19:00</span><span class="qs-name">DJ Sol</span><span class="qs-day">Sat</span></li>
+        <li><span class="qs-time">17:00</span><span class="qs-name">Willy</span><span class="qs-day">Sun</span></li>
+        <li><span class="qs-time">21:00</span><span class="qs-name">DJ GoodVibes</span><span class="qs-day">Sun</span></li>
       </ul>
     </div>
-    <div class="home-section">
-      <div class="section-label">About Us</div>
-      <div class="section-title">Independent Online Radio</div>
-      <p class="section-body">No ads. No algorithms. Just good music — handpicked by DJs who care. Broadcasting from Manchester to the world, 24 hours a day, 7 days a week.</p>
-      <p class="section-body" style="margin-top:12px;">Disc Break showcases mixes from established and undiscovered DJs. Want to get involved? <a href="#" onclick="showPage('about')" style="color:var(--green-bright); text-decoration:none;">Get in touch →</a></p>
+    <div class="home-panel">
+      <div class="panel-label">About</div>
+      <div class="panel-title">Independent Online Radio</div>
+      <p class="panel-body">No ads. No algorithms. Just good music — handpicked by DJs who care. Broadcasting from Manchester to the world, 24 hours a day, 7 days a week.</p>
+      <p class="panel-body" style="margin-top:12px;">Disc Break showcases mixes from established and undiscovered DJs. <a onclick="showPage('about')">Get involved →</a></p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ SCHEDULE PAGE ═══════════════ -->
+<!-- ══════════════ SCHEDULE ══════════════ -->
 <div class="page" id="page-schedule">
   <div class="page-header">
     <h1>Schedule</h1>
-    <p>All times GMT • DJs Fri–Sun • Vault Mixes & Curated Playlists Mon–Thu</p>
+    <p>All times GMT · DJs Fri–Sun · Vault Mixes & Curated Playlists Mon–Thu</p>
   </div>
-
-  <div class="vault-row">
-    <span class="vault-badge">Mon – Thu</span>
-    <span class="vault-text">00:00 – 24:00 &nbsp;·&nbsp; Vault Mixes & Curated Playlists</span>
+  <div class="vault-banner">
+    <span class="vault-tag">Mon – Thu</span>
+    <span class="vault-desc">00:00 – 24:00 · Vault Mixes & Curated Playlists</span>
   </div>
-
-  <div class="schedule-grid">
-    <div class="schedule-day">
-      <div class="day-header">Friday</div>
-      <div class="show-row"><span class="show-time-badge">17:00</span><div class="show-info"><div class="name">The Gravy Train</div><div class="type">House · Disco</div></div></div>
-      <div class="show-row"><span class="show-time-badge">18:00</span><div class="show-info"><div class="name">Dust Down Records</div><div class="type">Soul · Funk</div></div></div>
-      <div class="show-row"><span class="show-time-badge">19:00</span><div class="show-info"><div class="name">Rhythm Rotation</div><div class="type">Electronic</div></div></div>
-      <div class="show-row"><span class="show-time-badge">20:00</span><div class="show-info"><div class="name">Shi Karim</div><div class="type">Eclectic</div></div></div>
-      <div class="show-row"><span class="show-time-badge">21:00</span><div class="show-info"><div class="name">Powdersoul</div><div class="type">Deep House</div></div></div>
-      <div class="show-row"><span class="show-time-badge">22:00</span><div class="show-info"><div class="name">Mark Disc Break</div><div class="type">Mixed</div></div></div>
+  <div class="schedule-cols">
+    <div class="sched-col">
+      <div class="day-title">Friday</div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n">The Gravy Train</div><div class="show-g">House · Disco</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n">Dust Down Records</div><div class="show-g">Soul · Funk</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n">Rhythm Rotation</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n">Shi Karim</div><div class="show-g">Eclectic</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n">Powdersoul</div><div class="show-g">Deep House</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n">Mark Disc Break</div><div class="show-g">Mixed</div></div></div>
     </div>
-    <div class="schedule-day">
-      <div class="day-header">Saturday</div>
-      <div class="show-row"><span class="show-time-badge">17:00</span><div class="show-info"><div class="name">DBS</div><div class="type">Electronic</div></div></div>
-      <div class="show-row"><span class="show-time-badge">18:00</span><div class="show-info"><div class="name">François de Bonsoir</div><div class="type">French Touch</div></div></div>
-      <div class="show-row"><span class="show-time-badge">19:00</span><div class="show-info"><div class="name">DJ Sol</div><div class="type">Soul · Jazz</div></div></div>
-      <div class="show-row"><span class="show-time-badge">20:00</span><div class="show-info"><div class="name">Martin Depp</div><div class="type">Mixed</div></div></div>
-      <div class="show-row"><span class="show-time-badge">21:00</span><div class="show-info"><div class="name">Mark Alcock</div><div class="type">Electronic</div></div></div>
-      <div class="show-row"><span class="show-time-badge">22:00</span><div class="show-info"><div class="name">Look Busy Collective</div><div class="type">Eclectic</div></div></div>
+    <div class="sched-col">
+      <div class="day-title">Saturday</div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n">DBS</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n">François de Bonsoir</div><div class="show-g">French Touch</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n">DJ Sol</div><div class="show-g">Soul · Jazz</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n">Martin Depp</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n">Mark Alcock</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n">Look Busy Collective</div><div class="show-g">Eclectic</div></div></div>
     </div>
-    <div class="schedule-day">
-      <div class="day-header">Sunday</div>
-      <div class="show-row"><span class="show-time-badge">17:00</span><div class="show-info"><div class="name">Willy</div><div class="type">Mixed</div></div></div>
-      <div class="show-row"><span class="show-time-badge">18:00</span><div class="show-info"><div class="name">Semi-Detached Disco</div><div class="type">Disco · Funk</div></div></div>
-      <div class="show-row"><span class="show-time-badge">19:00</span><div class="show-info"><div class="name">Angus</div><div class="type">Electronic</div></div></div>
-      <div class="show-row"><span class="show-time-badge">20:00</span><div class="show-info"><div class="name">Alex Moore</div><div class="type">Mixed</div></div></div>
-      <div class="show-row"><span class="show-time-badge">21:00</span><div class="show-info"><div class="name">DJ GoodVibes</div><div class="type">Soulful House</div></div></div>
-      <div class="show-row"><span class="show-time-badge">22:00</span><div class="show-info"><div class="name">4 Colours</div><div class="type">Eclectic</div></div></div>
+    <div class="sched-col">
+      <div class="day-title">Sunday</div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n">Willy</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n">Semi-Detached Disco</div><div class="show-g">Disco · Funk</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n">Angus</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n">Alex Moore</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n">DJ GoodVibes</div><div class="show-g">Soulful House</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n">4 Colours</div><div class="show-g">Eclectic</div></div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ CONTRIBUTORS PAGE ═══════════════ -->
+<!-- ══════════════ CONTRIBUTORS ══════════════ -->
 <div class="page" id="page-contributors">
   <div class="page-header">
     <h1>Contributors</h1>
@@ -803,60 +779,50 @@
   <div class="contributors-grid" id="contributorsGrid"></div>
 </div>
 
-<!-- ═══════════════ ABOUT PAGE ═══════════════ -->
+<!-- ══════════════ ABOUT ══════════════ -->
 <div class="page" id="page-about">
-  <div class="about-layout">
+  <div class="about-wrap">
     <div class="about-left">
-      <h1>Just Good<span>Music.</span></h1>
+      <h1>just good music.</h1>
       <div class="about-body">
         <p>Disc Break is an independent online radio station broadcasting from Manchester. No ads, no algorithms — just handpicked music from DJs who genuinely love what they play.</p>
         <p>We started as a community project to give established and undiscovered DJs a platform. Every show is live, every mix is curated, and every track is chosen with care.</p>
         <p>Broadcasting 24 hours a day, 7 days a week. Tune in from anywhere in the world.</p>
       </div>
-      <div class="about-stat">
-        <div class="stat-item">
-          <div class="stat-num">24/7</div>
-          <div class="stat-label">Broadcasting</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">18+</div>
-          <div class="stat-label">Contributors</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">MCR</div>
-          <div class="stat-label">Based</div>
-        </div>
+      <div class="about-stats">
+        <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Broadcasting</div></div>
+        <div class="stat"><div class="stat-n">18+</div><div class="stat-l">Contributors</div></div>
+        <div class="stat"><div class="stat-n">MCR</div><div class="stat-l">Based</div></div>
       </div>
     </div>
     <div class="about-right">
-      <h2>Get Involved</h2>
-      <div class="contact-field">
+      <h2>get involved</h2>
+      <div class="field">
         <label>Your Name</label>
         <input type="text" placeholder="e.g. DJ Example">
       </div>
-      <div class="contact-field">
+      <div class="field">
         <label>Email</label>
         <input type="email" placeholder="hello@example.com">
       </div>
-      <div class="contact-field">
+      <div class="field">
         <label>Message</label>
-        <textarea rows="5" placeholder="Tell us about yourself and your music..."></textarea>
+        <textarea rows="5" placeholder="tell us about yourself and your music..."></textarea>
       </div>
-      <button class="btn-submit">Send Message</button>
+      <button class="btn-submit">send message</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ PERSISTENT PLAYER ═══════════════ -->
+<!-- ══════════════ PLAYER BAR ══════════════ -->
 <div id="player-bar">
-  <img class="player-dj-img" id="playerImg" src="https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/gravytrain-1920w.png" alt="">
-  <div class="player-show-info">
-    <div class="player-label">On Air Now</div>
-    <div class="player-show-name" id="playerShowName">Loading...</div>
+  <img class="player-img spinning-target" id="playerImg" src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/vault+mixes+NEW.png" alt="">
+  <div class="player-info">
+    <div class="player-label"><span class="live-dot"></span> On Air Now</div>
+    <div class="player-show" id="playerShowName">Loading...</div>
   </div>
-  <div class="live-badge"><div class="live-dot"></div>Live</div>
-  <div class="player-controls">
-    <div class="volume-wrap">
+  <div class="player-right">
+    <div class="vol-wrap">
       <span class="vol-icon">🔈</span>
       <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.8">
     </div>
@@ -869,23 +835,7 @@
 </audio>
 
 <script>
-// ── NOTION BANNER ──
-async function loadBanner() {
-  try {
-    const res = await fetch('/.netlify/functions/notion');
-    const data = await res.json();
-    if (data.results && data.results.length > 0) {
-      const banner = data.results[0];
-      const message = banner.properties.Message.rich_text[0]?.plain_text;
-      if (message) {
-        document.getElementById('banner-message').innerText = message;
-        document.getElementById('site-banner').style.display = 'block';
-      }
-    }
-  } catch(e) { console.warn('Banner load failed', e); }
-}
-loadBanner();  
-// ── PAGE NAVIGATION ──
+// ── NAVIGATION ──
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -894,7 +844,11 @@ function showPage(name) {
   window.scrollTo(0, 0);
 }
 
-// ── CONTRIBUTORS DATA ──
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', e => e.preventDefault());
+});
+
+// ── CONTRIBUTORS ──
 const contributors = [
   { name: 'The Gravy Train', day: 'Fri 17:00', img: 'https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/gravytrain-1920w.png' },
   { name: 'Dust Down Records', day: 'Fri 18:00', img: '' },
@@ -920,37 +874,36 @@ function buildContributors() {
   const grid = document.getElementById('contributorsGrid');
   contributors.forEach(c => {
     const card = document.createElement('div');
-    card.className = 'contributor-card';
-
+    card.className = 'contrib-card';
     if (c.img) {
       card.innerHTML = `
-        <img src="${c.img}" alt="${c.name}" onerror="this.parentElement.classList.add('contributor-placeholder'); this.remove();">
-        <div class="contributor-overlay">
+        <img src="${c.img}" alt="${c.name}" onerror="this.style.display='none'">
+        <div class="contrib-overlay">
           <div>
-            <div class="contributor-name">${c.name}</div>
-            <div class="contributor-day">${c.day}</div>
+            <div class="contrib-name">${c.name}</div>
+            <div class="contrib-slot">${c.day}</div>
           </div>
         </div>`;
     } else {
-      card.classList.add('contributor-placeholder');
-      const initials = c.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+      card.classList.add('contrib-placeholder');
+      const init = c.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
       card.innerHTML = `
-        <div class="initials">${initials}</div>
-        <div class="c-name">${c.name}</div>
-        <div class="c-day">${c.day}</div>`;
+        <div class="placeholder-init">${init}</div>
+        <div class="placeholder-name">${c.name}</div>
+        <div class="placeholder-slot">${c.day}</div>`;
     }
     grid.appendChild(card);
   });
 }
 buildContributors();
 
-// ── GOOGLE SHEETS SCHEDULE ──
+// ── GOOGLE SHEET NOW PLAYING ──
 let shows = [];
-const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRM_rEP_Xtl00ax3sIqhD18Gk1Z1zIEm1rG1yKJGLdwlCof2FMg1JJnRC3-ns9L0bCxr5brMbO0t2LC/pub?output=tsv&t=" + Date.now();
+const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRM_rEP_Xtl00ax3sIqhD18Gk1Z1zIEm1rG1yKJGLdwlCof2FMg1JJnRC3-ns9L0bCxr5brMbO0t2LC/pub?output=tsv";
 
 async function fetchShows() {
   try {
-    const res = await fetch(sheetUrl);
+    const res = await fetch(sheetUrl + "&t=" + Date.now());
     const text = await res.text();
     const rows = text.trim().split("\n");
     const headers = rows[0].split("\t").map(h => h.trim());
@@ -963,82 +916,92 @@ async function fetchShows() {
   } catch(e) { console.warn('Sheet fetch failed', e); }
 }
 
-function dayMatches(showDay, todayNum) {
-  if (showDay.toLowerCase() === "daily") return true;
-  const dayMap = { "Sun":0,"Mon":1,"Tue":2,"Wed":3,"Thu":4,"Fri":5,"Sat":6 };
-  return dayMap[showDay] === todayNum;
+function dayMatches(d, n) {
+  if (d.toLowerCase()==="daily") return true;
+  const m={"Sun":0,"Mon":1,"Tue":2,"Wed":3,"Thu":4,"Fri":5,"Sat":6};
+  return m[d]===n;
 }
 
-function timeMatches(start, end, h, m) {
-  const [sH,sM] = start.split(":").map(Number);
-  const [eH,eM] = end.split(":").map(Number);
-  const now = h*60+m, s = sH*60+sM, e = eH*60+eM;
-  return now >= s && now < e;
+function timeMatches(s,e,h,m) {
+  const [sH,sM]=s.split(":").map(Number);
+  const [eH,eM]=e.split(":").map(Number);
+  const now=h*60+m;
+  return now>=sH*60+sM && now<eH*60+eM;
 }
 
 function getCurrentShow() {
-  const now = new Date();
-  for (const s of shows) {
-    if (dayMatches(s.Day, now.getDay()) && timeMatches(s.Start, s.End, now.getHours(), now.getMinutes())) return s;
+  const now=new Date();
+  for(const s of shows){
+    if(dayMatches(s.Day,now.getDay())&&timeMatches(s.Start,s.End,now.getHours(),now.getMinutes())) return s;
   }
   return null;
 }
 
 async function updateNowPlaying() {
-  if (shows.length === 0) await fetchShows();
-  const current = getCurrentShow();
-  const name = current ? current.Show : "Vault Mixes";
-  const img = current ? (current.Image || "") : "https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/vault+mixes+NEW.png";
-
+  if(shows.length===0) await fetchShows();
+  const cur = getCurrentShow();
+  const name = cur ? cur.Show : "Vault Mixes";
+  const img = cur ? (cur.Image||"") : "https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/vault+mixes+NEW.png";
   document.getElementById('heroShowName').innerText = name;
   document.getElementById('playerShowName').innerText = name;
-  if (img) {
+  if(img){
     document.getElementById('heroImg').src = img;
     document.getElementById('playerImg').src = img;
   }
-
-  if (current && current.Link && current.Link !== '#') {
-    document.getElementById('heroCircle').onclick = () => window.open(current.Link, '_blank');
+  if(cur&&cur.Link&&cur.Link!=='#'){
+    document.getElementById('heroCircle').onclick = ()=>window.open(cur.Link,'_blank');
   }
 }
 
 updateNowPlaying();
 setInterval(updateNowPlaying, 30000);
 
-// ── AUDIO PLAYER ──
+// ── NOTION BANNER ──
+async function loadBanner() {
+  try {
+    const res = await fetch('/.netlify/functions/notion');
+    const data = await res.json();
+    if(data.results&&data.results.length>0){
+      const b = data.results[0];
+      const msg = b.properties.Message.rich_text[0]?.plain_text;
+      if(msg){
+        document.getElementById('banner-message').innerText = msg;
+        document.getElementById('site-banner').style.display = 'block';
+      }
+    }
+  } catch(e) { console.warn('Banner load failed', e); }
+}
+loadBanner();
+
+// ── AUDIO ──
 const audio = document.getElementById("radio");
 const btn = document.getElementById("playBtn");
 const vol = document.getElementById("volumeSlider");
 const playerImg = document.getElementById("playerImg");
+const heroImg = document.getElementById("heroImg");
 let isPlaying = false;
-
 audio.volume = 0.8;
 
 function togglePlay() {
-  if (!isPlaying) {
+  if(!isPlaying){
     audio.play();
-    btn.innerHTML = "⏸";
-    btn.classList.add("playing-btn");
+    btn.innerHTML="⏸"; btn.classList.add("playing");
     playerImg.classList.add("spinning");
-    document.getElementById('heroImg').classList.add("spinning");
-    isPlaying = true;
+    heroImg.classList.add("spinning");
+    document.getElementById('listenBtnText').innerText = "⏸ pause";
+    isPlaying=true;
   } else {
     audio.pause();
-    btn.innerHTML = "▶";
-    btn.classList.remove("playing-btn");
+    btn.innerHTML="▶"; btn.classList.remove("playing");
     playerImg.classList.remove("spinning");
-    document.getElementById('heroImg').classList.remove("spinning");
-    isPlaying = false;
+    heroImg.classList.remove("spinning");
+    document.getElementById('listenBtnText').innerText = "▶ listen live";
+    isPlaying=false;
   }
 }
 
 btn.addEventListener("click", togglePlay);
-vol.addEventListener("input", () => { audio.volume = vol.value; });
-
-// prevent nav link default
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', e => e.preventDefault());
-});
+vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
 </script>
 </body>
 </html>
