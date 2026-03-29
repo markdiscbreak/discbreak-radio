@@ -57,10 +57,13 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  height: 80px;
+  min-height: 80px;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .nav-logo { cursor: pointer; display: flex; align-items: center; }
-.nav-logo img { height: auto; width: 124px; }
+.nav-logo img { height: auto; width: 124px; display: block; }
 .nav-links { display: flex; gap: 0; list-style: none; }
 .nav-links a {
   display: block;
@@ -147,7 +150,7 @@ nav {
 .qs-day { color: var(--cream-dim); font-size: 11px; letter-spacing: 1px; }
 
 /* ── SCHEDULE ── */
-.page-header { padding: 48px 32px 32px; border-bottom: var(--border); }
+.page-header { padding: 48px 32px 32px; border-bottom: var(--border); width: 100%; max-width: 100%; }
 .page-header h1 { font-size: clamp(48px, 7vw, 96px); font-weight: 900; font-style: italic; line-height: 0.95; color: var(--cream); }
 .page-header p { color: var(--cream-dim); font-size: 13px; font-style: italic; margin-top: 10px; }
 .vault-banner {
@@ -175,8 +178,6 @@ nav {
 .contributors-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  border-left: var(--border);
-  margin: 0 2px;
 }
 .contrib-card {
   aspect-ratio: 1; overflow: hidden; position: relative;
@@ -213,17 +214,19 @@ nav {
   position: fixed; inset: 0; z-index: 500;
   background: rgba(30,50,33,0.92);
   backdrop-filter: blur(8px);
-  align-items: center; justify-content: center;
+  align-items: flex-start; justify-content: center;
   padding: 20px;
+  padding-bottom: calc(var(--player-height) + 20px);
+  overflow-y: auto;
 }
 #profile-modal.open { display: flex; animation: fadeIn 0.2s ease; }
 .profile-box {
   background: var(--green-dark);
   border: var(--border);
   max-width: 680px; width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
+  max-height: none;
   position: relative;
+  margin: auto;
 }
 .profile-top {
   display: grid;
@@ -414,7 +417,7 @@ nav {
   .contrib-card { border-right: var(--border); border-bottom: var(--border); }
 
   /* PROFILE MODAL */
-  .profile-box { max-height: 92vh; }
+  .profile-box { max-height: none; width: 100%; }
   .profile-top { grid-template-columns: 1fr; }
   .profile-img, .profile-img-placeholder { width: 100%; height: 220px; border-right: none; border-bottom: var(--border); }
 
