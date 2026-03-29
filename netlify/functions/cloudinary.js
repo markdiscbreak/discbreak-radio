@@ -24,10 +24,3 @@ exports.handler = async function() {
     body: JSON.stringify(images)
   };
 }
-```
-
-Save it, then commit and push via VS Code Source Control with message `Add Cloudinary function`.
-
-Once deployed, we'll test it at:
-```
-https://delightful-lokum-4d3e47.netlify.app/.netlify/functions/cloudinary
