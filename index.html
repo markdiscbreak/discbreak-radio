@@ -57,50 +57,26 @@ nav {
   padding: 0 32px;
   height: 64px;
 }
-
-.nav-logo {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.nav-logo img {
-  height: 44px;
-  width: auto;
-}
-
-.nav-links {
-  display: flex;
-  gap: 0;
-  list-style: none;
-}
-
+.nav-logo { cursor: pointer; display: flex; align-items: center; }
+.nav-logo img { height: 44px; width: auto; }
+.nav-links { display: flex; gap: 0; list-style: none; }
 .nav-links a {
   display: block;
-  font-size: 13px;
-  font-weight: 900;
-  font-style: italic;
+  font-size: 13px; font-weight: 900; font-style: italic;
   letter-spacing: 1px;
   color: var(--cream-dim);
-  text-decoration: none;
-  cursor: pointer;
+  text-decoration: none; cursor: pointer;
   transition: color 0.2s;
   padding: 8px 20px;
-  border: var(--border);
-  border-color: transparent;
+  border: var(--border); border-color: transparent;
   margin-left: -2px;
 }
-
 .nav-links a:hover { color: var(--cream); }
-.nav-links a.active {
-  color: var(--cream);
-  border-color: var(--cream);
-}
+.nav-links a.active { color: var(--cream); border-color: var(--cream); }
 
 /* ── PAGES ── */
 .page { display: none; animation: fadeIn 0.25s ease; }
 .page.active { display: block; }
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -115,535 +91,253 @@ nav {
   gap: 48px;
   align-items: center;
 }
-
 .hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
-
 .dj-circle-hero {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: var(--border);
-  cursor: pointer;
-  flex-shrink: 0;
+  width: 180px; height: 180px;
+  border-radius: 50%; overflow: hidden;
+  border: var(--border); cursor: pointer; flex-shrink: 0;
 }
-
-.dj-circle-hero img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
+.dj-circle-hero img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .hero-right { padding: 8px 0; }
-
 .on-air-label {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--cream-dim);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 11px; font-weight: 900; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--cream-dim);
+  margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
 }
-
 .live-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--cream);
-  animation: blink 1.4s ease infinite;
-  display: inline-block;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cream); animation: blink 1.4s ease infinite; display: inline-block;
 }
-
-@keyframes blink {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.2; }
-}
-
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
 .hero-show-name {
-  font-size: clamp(40px, 6vw, 80px);
-  font-weight: 900;
-  font-style: italic;
-  line-height: 0.95;
-  color: var(--cream);
-  margin-bottom: 20px;
+  font-size: clamp(40px, 6vw, 80px); font-weight: 900; font-style: italic;
+  line-height: 0.95; color: var(--cream); margin-bottom: 20px;
 }
-
-.hero-tagline {
-  font-size: 14px;
-  font-style: italic;
-  color: var(--cream-dim);
-  margin-bottom: 28px;
-}
-
+.hero-tagline { font-size: 14px; font-style: italic; color: var(--cream-dim); margin-bottom: 28px; }
 .btn-listen {
-  background: transparent;
-  color: var(--cream);
-  border: var(--border);
+  background: transparent; color: var(--cream); border: var(--border);
   padding: 12px 28px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  font-weight: 900;
-  font-style: italic;
-  letter-spacing: 1px;
-  cursor: pointer;
+  font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 900; font-style: italic;
+  letter-spacing: 1px; cursor: pointer;
   transition: background 0.2s, color 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  display: inline-flex; align-items: center; gap: 10px;
 }
+.btn-listen:hover { background: var(--cream); color: var(--green); }
 
-.btn-listen:hover {
-  background: var(--cream);
-  color: var(--green);
-}
-
-/* home bottom grid */
-.home-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: var(--border);
-}
-
-.home-panel {
-  padding: 40px 32px;
-  border-right: var(--border);
-}
-
+.home-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--border); }
+.home-panel { padding: 40px 32px; border-right: var(--border); }
 .home-panel:last-child { border-right: none; }
-
-.panel-label {
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--cream-dim);
-  margin-bottom: 16px;
-}
-
-.panel-title {
-  font-size: 28px;
-  font-weight: 900;
-  font-style: italic;
-  color: var(--cream);
-  margin-bottom: 16px;
-  line-height: 1.1;
-}
-
-.panel-body {
-  font-size: 14px;
-  font-style: italic;
-  line-height: 1.8;
-  color: var(--cream-dim);
-}
-
-.panel-body a {
-  color: var(--cream);
-  text-decoration: underline;
-  cursor: pointer;
-}
-
+.panel-label { font-size: 10px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 16px; }
+.panel-title { font-size: 28px; font-weight: 900; font-style: italic; color: var(--cream); margin-bottom: 16px; line-height: 1.1; }
+.panel-body { font-size: 14px; font-style: italic; line-height: 1.8; color: var(--cream-dim); }
+.panel-body a { color: var(--cream); text-decoration: underline; cursor: pointer; }
 .quick-schedule { list-style: none; margin-top: 4px; }
-
 .quick-schedule li {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 9px 0;
-  border-bottom: 1px solid rgba(234,235,237,0.15);
-  font-size: 13px;
-  font-style: italic;
+  display: flex; align-items: center; gap: 14px;
+  padding: 9px 0; border-bottom: 1px solid rgba(234,235,237,0.15);
+  font-size: 13px; font-style: italic; cursor: pointer;
+  transition: opacity 0.15s;
 }
-
+.quick-schedule li:hover { opacity: 0.7; }
 .quick-schedule li:last-child { border-bottom: none; }
-
-.qs-time {
-  color: var(--cream-dim);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  min-width: 38px;
-}
-
+.qs-time { color: var(--cream-dim); font-size: 11px; font-weight: 900; letter-spacing: 1px; min-width: 38px; }
 .qs-name { color: var(--cream); font-weight: 900; flex: 1; }
 .qs-day { color: var(--cream-dim); font-size: 11px; letter-spacing: 1px; }
 
 /* ── SCHEDULE ── */
-.page-header {
-  padding: 48px 32px 32px;
-  border-bottom: var(--border);
-}
-
-.page-header h1 {
-  font-size: clamp(48px, 7vw, 96px);
-  font-weight: 900;
-  font-style: italic;
-  line-height: 0.95;
-  color: var(--cream);
-}
-
-.page-header p {
-  color: var(--cream-dim);
-  font-size: 13px;
-  font-style: italic;
-  margin-top: 10px;
-}
-
+.page-header { padding: 48px 32px 32px; border-bottom: var(--border); }
+.page-header h1 { font-size: clamp(48px, 7vw, 96px); font-weight: 900; font-style: italic; line-height: 0.95; color: var(--cream); }
+.page-header p { color: var(--cream-dim); font-size: 13px; font-style: italic; margin-top: 10px; }
 .vault-banner {
-  padding: 14px 32px;
-  border-bottom: var(--border);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: var(--cream-faint);
+  padding: 14px 32px; border-bottom: var(--border);
+  display: flex; align-items: center; gap: 16px; background: var(--cream-faint);
 }
-
-.vault-tag {
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border: var(--border);
-  padding: 3px 10px;
-  color: var(--cream);
-  white-space: nowrap;
-}
-
+.vault-tag { font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; border: var(--border); padding: 3px 10px; color: var(--cream); white-space: nowrap; }
 .vault-desc { font-size: 13px; font-style: italic; color: var(--cream-dim); }
-
-.schedule-cols {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.sched-col {
-  padding: 32px 28px;
-  border-right: var(--border);
-}
-
+.schedule-cols { display: grid; grid-template-columns: repeat(3, 1fr); }
+.sched-col { padding: 32px 28px; border-right: var(--border); }
 .sched-col:last-child { border-right: none; }
-
-.day-title {
-  font-size: 32px;
-  font-weight: 900;
-  font-style: italic;
-  color: var(--cream);
-  margin-bottom: 20px;
-  padding-bottom: 14px;
-  border-bottom: var(--border);
-}
-
+.day-title { font-size: 32px; font-weight: 900; font-style: italic; color: var(--cream); margin-bottom: 20px; padding-bottom: 14px; border-bottom: var(--border); }
 .show-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 11px 0;
-  border-bottom: 1px solid rgba(234,235,237,0.12);
-  cursor: pointer;
-  transition: opacity 0.15s;
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 11px 0; border-bottom: 1px solid rgba(234,235,237,0.12);
+  cursor: pointer; transition: opacity 0.15s;
 }
-
 .show-item:last-child { border-bottom: none; }
-.show-item:hover { opacity: 0.75; }
-
-.show-t {
-  font-size: 11px;
-  font-weight: 900;
-  color: var(--cream-dim);
-  letter-spacing: 1px;
-  min-width: 40px;
-  padding-top: 2px;
-}
-
+.show-item:hover { opacity: 0.7; }
+.show-t { font-size: 11px; font-weight: 900; color: var(--cream-dim); letter-spacing: 1px; min-width: 40px; padding-top: 2px; }
 .show-n { font-size: 14px; font-weight: 900; font-style: italic; color: var(--cream); }
 .show-g { font-size: 11px; font-style: italic; color: var(--cream-dim); margin-top: 2px; }
 
-/* ── CONTRIBUTORS ── */
+/* ── CONTRIBUTORS GRID ── */
 .contributors-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
-
 .contrib-card {
-  aspect-ratio: 1;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  border-right: var(--border);
-  border-bottom: var(--border);
+  aspect-ratio: 1; overflow: hidden; position: relative;
+  cursor: pointer; border-right: var(--border); border-bottom: var(--border);
 }
-
 .contrib-card img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-  filter: saturate(0.85);
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s ease; filter: saturate(0.85);
 }
-
 .contrib-card:hover img { transform: scale(1.04); filter: saturate(1); }
-
 .contrib-overlay {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(35,70,44,0.92) 0%, transparent 55%);
-  display: flex;
-  align-items: flex-end;
-  padding: 18px;
-  opacity: 0;
-  transition: opacity 0.3s;
+  display: flex; align-items: flex-end; padding: 18px;
+  opacity: 0; transition: opacity 0.3s;
 }
-
 .contrib-card:hover .contrib-overlay { opacity: 1; }
-.contrib-name { font-size: 18px; font-weight: 900; font-style: italic; color: var(--cream); }
+.contrib-name { font-size: 16px; font-weight: 900; font-style: italic; color: var(--cream); }
 .contrib-slot { font-size: 11px; color: var(--cream-dim); letter-spacing: 1px; margin-top: 2px; }
-
 .contrib-placeholder {
-  background: var(--cream-faint);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 18px;
-  gap: 4px;
+  background: var(--cream-faint); display: flex;
+  flex-direction: column; align-items: flex-start; justify-content: flex-end;
+  padding: 18px; gap: 4px; cursor: pointer;
+  transition: background 0.2s;
 }
-
-.placeholder-init {
-  font-size: 36px;
-  font-weight: 900;
-  font-style: italic;
-  color: var(--cream-dim);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-
+.contrib-placeholder:hover { background: rgba(234,235,237,0.18); }
+.placeholder-init { font-size: 36px; font-weight: 900; font-style: italic; color: var(--cream-dim); line-height: 1; margin-bottom: 6px; }
 .placeholder-name { font-size: 14px; font-weight: 900; font-style: italic; color: var(--cream); }
 .placeholder-slot { font-size: 11px; color: var(--cream-dim); letter-spacing: 1px; }
 
-/* ── ABOUT ── */
-.about-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: calc(100vh - 64px - var(--player-height));
+/* ── PROFILE MODAL ── */
+#profile-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(30,50,33,0.92);
+  backdrop-filter: blur(8px);
+  align-items: center; justify-content: center;
+  padding: 20px;
 }
-
-.about-left {
-  padding: 60px 32px;
-  border-right: var(--border);
-}
-
-.about-left h1 {
-  font-size: clamp(48px, 6vw, 88px);
-  font-weight: 900;
-  font-style: italic;
-  line-height: 0.95;
-  color: var(--cream);
-  margin-bottom: 28px;
-}
-
-.about-body {
-  font-size: 15px;
-  font-style: italic;
-  line-height: 1.9;
-  color: var(--cream-dim);
-}
-
-.about-body p { margin-bottom: 18px; }
-
-.about-stats {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 1px;
-  margin-top: 40px;
+#profile-modal.open { display: flex; animation: fadeIn 0.2s ease; }
+.profile-box {
+  background: var(--green-dark);
   border: var(--border);
+  max-width: 680px; width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
 }
-
-.stat {
-  padding: 20px 16px;
+.profile-top {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+.profile-img {
+  width: 200px; height: 200px;
+  object-fit: cover;
   border-right: var(--border);
-}
-
-.stat:last-child { border-right: none; }
-
-.stat-n {
-  font-size: 40px;
-  font-weight: 900;
-  font-style: italic;
-  color: var(--cream);
-  line-height: 1;
-}
-
-.stat-l {
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--cream-dim);
-  margin-top: 4px;
-}
-
-.about-right { padding: 60px 32px; }
-
-.about-right h2 {
-  font-size: 32px;
-  font-weight: 900;
-  font-style: italic;
-  color: var(--cream);
-  margin-bottom: 28px;
-}
-
-.field { margin-bottom: 20px; }
-
-.field label {
   display: block;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--cream-dim);
-  margin-bottom: 8px;
 }
-
-.field input,
-.field textarea {
-  width: 100%;
-  background: transparent;
-  border: var(--border);
-  color: var(--cream);
-  padding: 11px 14px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  font-style: italic;
-  outline: none;
-  transition: background 0.2s;
-  resize: none;
+.profile-img-placeholder {
+  width: 200px; height: 200px;
+  background: var(--cream-faint);
+  border-right: var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; font-weight: 900; font-style: italic; color: var(--cream-dim);
 }
-
-.field input:focus,
-.field textarea:focus { background: var(--cream-faint); }
-
-.field input::placeholder,
-.field textarea::placeholder { color: var(--cream-dim); }
-
-.btn-submit {
-  background: transparent;
-  color: var(--cream);
-  border: var(--border);
-  padding: 12px 28px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-  font-weight: 900;
-  font-style: italic;
-  letter-spacing: 1px;
-  cursor: pointer;
+.profile-header {
+  padding: 24px 24px 20px;
+  border-bottom: var(--border);
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.profile-schedule {
+  font-size: 10px; font-weight: 900; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--cream-dim); margin-bottom: 8px;
+}
+.profile-name {
+  font-size: 28px; font-weight: 900; font-style: italic;
+  color: var(--cream); line-height: 1.1;
+}
+.profile-bio {
+  padding: 24px;
+  font-size: 13px; font-style: italic; line-height: 1.9;
+  color: var(--cream-dim); border-bottom: var(--border);
+}
+.profile-links {
+  padding: 16px 24px;
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.social-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 900; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--cream);
+  border: var(--border); padding: 8px 16px;
+  text-decoration: none; transition: background 0.2s, color 0.2s;
+}
+.social-link:hover { background: var(--cream); color: var(--green); }
+.profile-close {
+  position: absolute; top: 12px; right: 12px;
+  background: transparent; border: var(--border);
+  color: var(--cream); width: 32px; height: 32px;
+  font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
   transition: background 0.2s, color 0.2s;
-  margin-top: 4px;
 }
+.profile-close:hover { background: var(--cream); color: var(--green); }
 
+/* ── ABOUT ── */
+.about-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 64px - var(--player-height)); }
+.about-left { padding: 60px 32px; border-right: var(--border); }
+.about-left h1 { font-size: clamp(48px, 6vw, 88px); font-weight: 900; font-style: italic; line-height: 0.95; color: var(--cream); margin-bottom: 28px; }
+.about-body { font-size: 15px; font-style: italic; line-height: 1.9; color: var(--cream-dim); }
+.about-body p { margin-bottom: 18px; }
+.about-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 40px; border: var(--border); }
+.stat { padding: 20px 16px; border-right: var(--border); }
+.stat:last-child { border-right: none; }
+.stat-n { font-size: 40px; font-weight: 900; font-style: italic; color: var(--cream); line-height: 1; }
+.stat-l { font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-dim); margin-top: 4px; }
+.about-right { padding: 60px 32px; }
+.about-right h2 { font-size: 32px; font-weight: 900; font-style: italic; color: var(--cream); margin-bottom: 28px; }
+.field { margin-bottom: 20px; }
+.field label { display: block; font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 8px; }
+.field input, .field textarea {
+  width: 100%; background: transparent; border: var(--border);
+  color: var(--cream); padding: 11px 14px;
+  font-family: 'Montserrat', sans-serif; font-size: 14px; font-style: italic;
+  outline: none; transition: background 0.2s; resize: none;
+}
+.field input:focus, .field textarea:focus { background: var(--cream-faint); }
+.field input::placeholder, .field textarea::placeholder { color: var(--cream-dim); }
+.btn-submit {
+  background: transparent; color: var(--cream); border: var(--border);
+  padding: 12px 28px;
+  font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 900; font-style: italic;
+  letter-spacing: 1px; cursor: pointer; transition: background 0.2s, color 0.2s; margin-top: 4px;
+}
 .btn-submit:hover { background: var(--cream); color: var(--green); }
 
 /* ── PLAYER BAR ── */
 #player-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
+  position: fixed; bottom: 0; left: 0; right: 0;
   height: var(--player-height);
-  background: var(--green-dark);
-  border-top: var(--border);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  gap: 16px;
+  background: var(--green-dark); border-top: var(--border);
+  z-index: 1000; display: flex; align-items: center; padding: 0 24px; gap: 16px;
 }
-
-.player-img {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: var(--border);
-  flex-shrink: 0;
-}
-
+.player-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: var(--border); flex-shrink: 0; }
 .player-info { flex: 1; min-width: 0; }
-
-.player-label {
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--cream-dim);
-  margin-bottom: 2px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.player-show {
-  font-size: 17px;
-  font-weight: 900;
-  font-style: italic;
-  color: var(--cream);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.player-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
-
-.vol-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
+.player-label { font-size: 9px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 2px; display: flex; align-items: center; gap: 6px; }
+.player-show { font-size: 17px; font-weight: 900; font-style: italic; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.vol-wrap { display: flex; align-items: center; gap: 8px; }
 .vol-icon { font-size: 13px; color: var(--cream-dim); }
-
-#volumeSlider {
-  -webkit-appearance: none;
-  width: 88px; height: 2px;
-  background: var(--cream-dim);
-  border-radius: 1px;
-  cursor: pointer;
-  outline: none;
-}
-
-#volumeSlider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px; height: 12px;
-  background: var(--cream);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
+#volumeSlider { -webkit-appearance: none; width: 88px; height: 2px; background: var(--cream-dim); border-radius: 1px; cursor: pointer; outline: none; }
+#volumeSlider::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: var(--cream); border-radius: 50%; cursor: pointer; }
 #playBtn {
-  width: 44px; height: 44px;
-  border: var(--border);
-  background: transparent;
-  color: var(--cream);
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  flex-shrink: 0;
+  width: 44px; height: 44px; border: var(--border); background: transparent;
+  color: var(--cream); font-size: 16px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.2s, color 0.2s; flex-shrink: 0;
 }
-
-#playBtn:hover { background: var(--cream); color: var(--green); }
-#playBtn.playing { background: var(--cream); color: var(--green); }
-
+#playBtn:hover, #playBtn.playing { background: var(--cream); color: var(--green); }
 .spinning { animation: spin 5s linear infinite; }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   nav { padding: 0 16px; }
-  .nav-links a { padding: 8px 12px; font-size: 12px; }
+  .nav-links a { padding: 8px 12px; font-size: 11px; }
   .hero { grid-template-columns: 1fr; gap: 24px; padding: 32px 16px; }
   .dj-circle-hero { width: 130px; height: 130px; }
   .home-grid { grid-template-columns: 1fr; }
@@ -655,15 +349,15 @@ nav {
   .page-header { padding: 32px 16px 24px; }
   #player-bar { padding: 0 16px; gap: 12px; }
   .vol-wrap { display: none; }
+  .profile-top { grid-template-columns: 1fr; }
+  .profile-img, .profile-img-placeholder { width: 100%; height: 200px; border-right: none; border-bottom: var(--border); }
 }
 </style>
 </head>
 <body>
 
 <!-- NOTION BANNER -->
-<div id="site-banner">
-  <span id="banner-message"></span>
-</div>
+<div id="site-banner"><span id="banner-message"></span></div>
 
 <!-- NAV -->
 <nav>
@@ -683,7 +377,7 @@ nav {
   <div class="hero">
     <div class="hero-left">
       <div class="dj-circle-hero" id="heroCircle">
-        <img id="heroImg" src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/vault+mixes+NEW.png" alt="Now Playing">
+        <img id="heroImg" src="https://res.cloudinary.com/db5yf8okw/image/upload/vault_mixes_NEW_ikblvl.png" alt="Now Playing">
       </div>
     </div>
     <div class="hero-right">
@@ -695,19 +389,11 @@ nav {
       </button>
     </div>
   </div>
-
   <div class="home-grid">
     <div class="home-panel">
-      <div class="panel-label">This Week</div>
-      <div class="panel-title">On The Schedule</div>
-      <ul class="quick-schedule">
-        <li><span class="qs-time">17:00</span><span class="qs-name">The Gravy Train</span><span class="qs-day">Fri</span></li>
-        <li><span class="qs-time">18:00</span><span class="qs-name">Dust Down Records</span><span class="qs-day">Fri</span></li>
-        <li><span class="qs-time">17:00</span><span class="qs-name">DBS</span><span class="qs-day">Sat</span></li>
-        <li><span class="qs-time">19:00</span><span class="qs-name">DJ Sol</span><span class="qs-day">Sat</span></li>
-        <li><span class="qs-time">17:00</span><span class="qs-name">Willy</span><span class="qs-day">Sun</span></li>
-        <li><span class="qs-time">21:00</span><span class="qs-name">DJ GoodVibes</span><span class="qs-day">Sun</span></li>
-      </ul>
+      <div class="panel-label" id="scheduleLabel">Today's Schedule</div>
+      <div class="panel-title" id="scheduleDayTitle">On The Schedule</div>
+      <ul class="quick-schedule" id="quickSchedule"></ul>
     </div>
     <div class="home-panel">
       <div class="panel-label">About</div>
@@ -780,32 +466,39 @@ nav {
       </div>
       <div class="about-stats">
         <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Broadcasting</div></div>
-        <div class="stat"><div class="stat-n">18+</div><div class="stat-l">Contributors</div></div>
+        <div class="stat"><div class="stat-n">40+</div><div class="stat-l">Contributors</div></div>
         <div class="stat"><div class="stat-n">MCR</div><div class="stat-l">Based</div></div>
       </div>
     </div>
     <div class="about-right">
       <h2>get involved</h2>
-      <div class="field">
-        <label>Your Name</label>
-        <input type="text" placeholder="e.g. DJ Example">
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <input type="email" placeholder="hello@example.com">
-      </div>
-      <div class="field">
-        <label>Message</label>
-        <textarea rows="5" placeholder="tell us about yourself and your music..."></textarea>
-      </div>
+      <div class="field"><label>Your Name</label><input type="text" placeholder="e.g. DJ Example"></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="hello@example.com"></div>
+      <div class="field"><label>Message</label><textarea rows="5" placeholder="tell us about yourself and your music..."></textarea></div>
       <button class="btn-submit">send message</button>
     </div>
   </div>
 </div>
 
+<!-- ══════════════ PROFILE MODAL ══════════════ -->
+<div id="profile-modal">
+  <div class="profile-box">
+    <button class="profile-close" onclick="closeProfile()">✕</button>
+    <div class="profile-top">
+      <img class="profile-img" id="profile-img" src="" alt="">
+      <div class="profile-header">
+        <div class="profile-schedule" id="profile-schedule"></div>
+        <div class="profile-name" id="profile-name"></div>
+      </div>
+    </div>
+    <div class="profile-bio" id="profile-bio"></div>
+    <div class="profile-links" id="profile-links"></div>
+  </div>
+</div>
+
 <!-- ══════════════ PLAYER BAR ══════════════ -->
 <div id="player-bar">
-  <img class="player-img spinning-target" id="playerImg" src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/vault+mixes+NEW.png" alt="">
+  <img class="player-img" id="playerImg" src="https://res.cloudinary.com/db5yf8okw/image/upload/vault_mixes_NEW_ikblvl.png" alt="">
   <div class="player-info">
     <div class="player-label"><span class="live-dot"></span> On Air Now</div>
     <div class="player-show" id="playerShowName">Loading...</div>
@@ -823,6 +516,7 @@ nav {
   <source src="https://usa19.fastcast4u.com:8340/;?type=http&nocache=1774562428" type="audio/mpeg">
 </audio>
 
+<script src="contributors-data.js"></script>
 <script>
 // ── NAVIGATION ──
 function showPage(name) {
@@ -832,45 +526,115 @@ function showPage(name) {
   document.getElementById('nav-' + name).classList.add('active');
   window.scrollTo(0, 0);
 }
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', e => e.preventDefault()));
 
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', e => e.preventDefault());
-});
+// ── HOME SCHEDULE (day-aware) ──
+const daySchedules = {
+  fri: [
+    { time: '17:00', name: 'The Gravy Train' },
+    { time: '18:00', name: 'Dust Down Records' },
+    { time: '19:00', name: 'Rhythm Rotation' },
+    { time: '20:00', name: 'Shi Karim' },
+    { time: '21:00', name: 'Powdersoul' },
+    { time: '22:00', name: 'Mark Disc Break' },
+  ],
+  sat: [
+    { time: '17:00', name: 'DBS' },
+    { time: '18:00', name: 'François de Bonsoir' },
+    { time: '19:00', name: 'DJ Sol' },
+    { time: '20:00', name: 'Martin Depp' },
+    { time: '21:00', name: 'Mark Alcock' },
+    { time: '22:00', name: 'Look Busy Collective' },
+  ],
+  sun: [
+    { time: '17:00', name: 'Willy' },
+    { time: '18:00', name: 'Semi-Detached Disco' },
+    { time: '19:00', name: 'Angus' },
+    { time: '20:00', name: 'Alex Moore' },
+    { time: '21:00', name: 'DJ GoodVibes' },
+    { time: '22:00', name: '4 Colours' },
+  ]
+};
+
+function buildQuickSchedule() {
+  const day = new Date().getDay(); // 0=Sun,1=Mon...6=Sat
+  let key, label, dayName;
+  if (day === 6) { key = 'sat'; label = "Saturday's Schedule"; dayName = 'Sat'; }
+  else if (day === 0) { key = 'sun'; label = "Sunday's Schedule"; dayName = 'Sun'; }
+  else { key = 'fri'; label = "Friday's Schedule"; dayName = 'Fri'; } // Mon-Fri all show Friday
+
+  document.getElementById('scheduleLabel').innerText = label;
+  document.getElementById('scheduleDayTitle').innerText = dayName === 'Fri' && day !== 5 ? 'Coming Up Friday' : 'On The Schedule';
+
+  const ul = document.getElementById('quickSchedule');
+  ul.innerHTML = '';
+  daySchedules[key].forEach(s => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="qs-time">${s.time}</span><span class="qs-name">${s.name}</span><span class="qs-day">${dayName}</span>`;
+    li.onclick = () => showPage('schedule');
+    ul.appendChild(li);
+  });
+}
+buildQuickSchedule();
 
 // ── CONTRIBUTORS ──
-const contributors = [
-  { name: 'The Gravy Train', day: 'Fri 17:00', img: 'https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/gravytrain-1920w.png' },
-  { name: 'Dust Down Records', day: 'Fri 18:00', img: '' },
-  { name: 'Rhythm Rotation', day: 'Fri 19:00', img: 'https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/Rhythm+rotation+show+image-1920w.png' },
-  { name: 'Shi Karim', day: 'Fri 20:00', img: '' },
-  { name: 'Powdersoul', day: 'Fri 21:00', img: '' },
-  { name: 'Mark Disc Break', day: 'Fri 22:00', img: '' },
-  { name: 'DBS', day: 'Sat 17:00', img: '' },
-  { name: 'François de Bonsoir', day: 'Sat 18:00', img: '' },
-  { name: 'DJ Sol', day: 'Sat 19:00', img: '' },
-  { name: 'Martin Depp', day: 'Sat 20:00', img: '' },
-  { name: 'Mark Alcock', day: 'Sat 21:00', img: '' },
-  { name: 'Look Busy Collective', day: 'Sat 22:00', img: '' },
-  { name: 'Willy', day: 'Sun 17:00', img: '' },
-  { name: 'Semi-Detached Disco', day: 'Sun 18:00', img: '' },
-  { name: 'Angus', day: 'Sun 19:00', img: '' },
-  { name: 'Alex Moore', day: 'Sun 20:00', img: '' },
-  { name: 'DJ GoodVibes', day: 'Sun 21:00', img: 'https://lirp.cdn-website.com/c4da5bb4/dms3rep/multi/opt/DJ+Good+Vibes-1920w.png' },
-  { name: '4 Colours', day: 'Sun 22:00', img: '' },
-];
+function openProfile(c) {
+  const modal = document.getElementById('profile-modal');
+  const img = document.getElementById('profile-img');
+
+  if (c.image) {
+    img.src = c.image;
+    img.style.display = 'block';
+    img.className = 'profile-img';
+  } else {
+    img.style.display = 'none';
+    // show placeholder with initials
+    const existing = document.querySelector('.profile-img-placeholder');
+    if (existing) existing.remove();
+    const ph = document.createElement('div');
+    ph.className = 'profile-img-placeholder';
+    ph.innerText = c.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    img.parentNode.insertBefore(ph, img);
+  }
+
+  document.getElementById('profile-schedule').innerText = c.schedule || '';
+  document.getElementById('profile-name').innerText = c.name;
+  document.getElementById('profile-bio').innerText = c.bio || '';
+
+  const links = document.getElementById('profile-links');
+  links.innerHTML = '';
+  if (c.instagram) links.innerHTML += `<a class="social-link" href="${c.instagram}" target="_blank">↗ Instagram</a>`;
+  if (c.mixcloud) links.innerHTML += `<a class="social-link" href="${c.mixcloud}" target="_blank">↗ Mixcloud</a>`;
+  if (c.soundcloud) links.innerHTML += `<a class="social-link" href="${c.soundcloud}" target="_blank">↗ Soundcloud</a>`;
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProfile() {
+  document.getElementById('profile-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('profile-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeProfile();
+});
 
 function buildContributors() {
   const grid = document.getElementById('contributorsGrid');
-  contributors.forEach(c => {
+  const active = CONTRIBUTORS.filter(c => c.active);
+  active.forEach(c => {
     const card = document.createElement('div');
     card.className = 'contrib-card';
-    if (c.img) {
+    card.onclick = () => openProfile(c);
+
+    if (c.image) {
       card.innerHTML = `
-        <img src="${c.img}" alt="${c.name}" onerror="this.style.display='none'">
+        <img src="${c.image}" alt="${c.name}" onerror="this.style.display='none'">
         <div class="contrib-overlay">
           <div>
             <div class="contrib-name">${c.name}</div>
-            <div class="contrib-slot">${c.day}</div>
+            <div class="contrib-slot">${c.schedule}</div>
           </div>
         </div>`;
     } else {
@@ -879,7 +643,7 @@ function buildContributors() {
       card.innerHTML = `
         <div class="placeholder-init">${init}</div>
         <div class="placeholder-name">${c.name}</div>
-        <div class="placeholder-slot">${c.day}</div>`;
+        <div class="placeholder-slot">${c.schedule}</div>`;
     }
     grid.appendChild(card);
   });
@@ -910,14 +674,12 @@ function dayMatches(d, n) {
   const m={"Sun":0,"Mon":1,"Tue":2,"Wed":3,"Thu":4,"Fri":5,"Sat":6};
   return m[d]===n;
 }
-
 function timeMatches(s,e,h,m) {
   const [sH,sM]=s.split(":").map(Number);
   const [eH,eM]=e.split(":").map(Number);
   const now=h*60+m;
   return now>=sH*60+sM && now<eH*60+eM;
 }
-
 function getCurrentShow() {
   const now=new Date();
   for(const s of shows){
@@ -930,18 +692,12 @@ async function updateNowPlaying() {
   if(shows.length===0) await fetchShows();
   const cur = getCurrentShow();
   const name = cur ? cur.Show : "Vault Mixes";
-  const img = cur ? (cur.Image||"") : "https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/vault+mixes+NEW.png";
+  const img = cur ? (cur.Image||"") : "https://res.cloudinary.com/db5yf8okw/image/upload/vault_mixes_NEW_ikblvl.png";
   document.getElementById('heroShowName').innerText = name;
   document.getElementById('playerShowName').innerText = name;
-  if(img){
-    document.getElementById('heroImg').src = img;
-    document.getElementById('playerImg').src = img;
-  }
-  if(cur&&cur.Link&&cur.Link!=='#'){
-    document.getElementById('heroCircle').onclick = ()=>window.open(cur.Link,'_blank');
-  }
+  if(img){ document.getElementById('heroImg').src = img; document.getElementById('playerImg').src = img; }
+  if(cur&&cur.Link&&cur.Link!=='#'){ document.getElementById('heroCircle').onclick = ()=>window.open(cur.Link,'_blank'); }
 }
-
 updateNowPlaying();
 setInterval(updateNowPlaying, 30000);
 
@@ -953,10 +709,7 @@ async function loadBanner() {
     if(data.results&&data.results.length>0){
       const b = data.results[0];
       const msg = b.properties.Message.rich_text[0]?.plain_text;
-      if(msg){
-        document.getElementById('banner-message').innerText = msg;
-        document.getElementById('site-banner').style.display = 'block';
-      }
+      if(msg){ document.getElementById('banner-message').innerText = msg; document.getElementById('site-banner').style.display = 'block'; }
     }
   } catch(e) { console.warn('Banner load failed', e); }
 }
@@ -973,22 +726,17 @@ audio.volume = 0.8;
 
 function togglePlay() {
   if(!isPlaying){
-    audio.play();
-    btn.innerHTML="⏸"; btn.classList.add("playing");
-    playerImg.classList.add("spinning");
-    heroImg.classList.add("spinning");
+    audio.play(); btn.innerHTML="⏸"; btn.classList.add("playing");
+    playerImg.classList.add("spinning"); heroImg.classList.add("spinning");
     document.getElementById('listenBtnText').innerText = "⏸ pause";
     isPlaying=true;
   } else {
-    audio.pause();
-    btn.innerHTML="▶"; btn.classList.remove("playing");
-    playerImg.classList.remove("spinning");
-    heroImg.classList.remove("spinning");
+    audio.pause(); btn.innerHTML="▶"; btn.classList.remove("playing");
+    playerImg.classList.remove("spinning"); heroImg.classList.remove("spinning");
     document.getElementById('listenBtnText').innerText = "▶ listen live";
     isPlaying=false;
   }
 }
-
 btn.addEventListener("click", togglePlay);
 vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
 </script>
