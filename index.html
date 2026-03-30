@@ -688,7 +688,7 @@ function buildQuickSchedule() {
 
   const ul = document.getElementById('quickSchedule');
   ul.innerHTML = '';
-  const dayShows = shows.filter(s => s.day === key || s.day.toLowerCase() === 'daily');
+  const dayShows = shows.filter(s => s.day === key);
   dayShows.forEach(s => {
     const li = document.createElement('li');
     li.innerHTML = `<span class="qs-time">${s.start}</span><span class="qs-name">${s.show}</span><span class="qs-day">${dayName}</span>`;
