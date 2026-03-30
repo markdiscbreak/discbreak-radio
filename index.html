@@ -669,7 +669,7 @@ const daySchedules = {
 };
 
 function buildQuickSchedule() {
-  const day = getUKTime().day; // Uses UK timezone automatically
+  const day = new Date().getDay(); // 0=Sun,1=Mon...6=Sat
   let key, label, dayName;
   if (day === 6) { key = 'sat'; label = "Saturday's Schedule"; dayName = 'Sat'; }
   else if (day === 0) { key = 'sun'; label = "Sunday's Schedule"; dayName = 'Sun'; }
@@ -786,18 +786,6 @@ async function fetchShows() {
   } catch(e) { console.warn('Sheet fetch failed', e); }
 }
 
-function getUKTime() {
-  // Always uses Europe/London so BST/GMT is handled automatically
-  const now = new Date();
-  const ukStr = now.toLocaleString('en-GB', { timeZone: 'Europe/London' });
-  // ukStr format: "dd/mm/yyyy, hh:mm:ss"
-  const [datePart, timePart] = ukStr.split(', ');
-  const [day, month, year] = datePart.split('/').map(Number);
-  const [hours, minutes] = timePart.split(':').map(Number);
-  const ukDate = new Date(year, month - 1, day, hours, minutes);
-  return { hours, minutes, day: ukDate.getDay() };
-}
-
 function dayMatches(d, n) {
   if (d.toLowerCase()==="daily") return true;
   const m={"Sun":0,"Mon":1,"Tue":2,"Wed":3,"Thu":4,"Fri":5,"Sat":6};
@@ -807,18 +795,12 @@ function timeMatches(s,e,h,m) {
   const [sH,sM]=s.split(":").map(Number);
   const [eH,eM]=e.split(":").map(Number);
   const now=h*60+m;
-  const start=sH*60+sM;
-  const end=eH*60+eM;
-  // Handle shows crossing midnight (e.g. 22:00 - 00:00)
-  if(end === 0 || end < start) {
-    return now >= start || now < (end === 0 ? 1440 : end);
-  }
-  return now>=start && now<end;
+  return now>=sH*60+sM && now<eH*60+eM;
 }
 function getCurrentShow() {
-  const { hours, minutes, day } = getUKTime();
+  const now=new Date();
   for(const s of shows){
-    if(dayMatches(s.Day, day) && timeMatches(s.Start, s.End, hours, minutes)) return s;
+    if(dayMatches(s.Day,now.getDay())&&timeMatches(s.Start,s.End,now.getHours(),now.getMinutes())) return s;
   }
   return null;
 }
