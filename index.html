@@ -503,16 +503,40 @@ nav {
 <div class="page" id="page-schedule">
   <div class="page-header">
     <h1>schedule</h1>
-    <p>All times BST · DJs Fri–Sun · Vault Mixes & Curated Playlists Mon–Thu</p>
+    <p>All times GMT · DJs Fri–Sun · Vault Mixes & Curated Playlists Mon–Thu</p>
   </div>
   <div class="vault-banner">
     <span class="vault-tag">Mon – Thu</span>
     <span class="vault-desc">Vault Mixes & Curated Playlists</span>
   </div>
-  <div class="schedule-cols" id="scheduleCols">
-    <div class="sched-col" id="sched-fri"><div class="day-title">friday</div></div>
-    <div class="sched-col" id="sched-sat"><div class="day-title">saturday</div></div>
-    <div class="sched-col" id="sched-sun"><div class="day-title">sunday</div></div>
+  <div class="schedule-cols">
+    <div class="sched-col">
+      <div class="day-title">friday</div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Gravy Train')">The Gravy Train</div><div class="show-g">House · Disco</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Dust Down Records')">Dust Down Records</div><div class="show-g">Soul · Funk</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Rhythm Rotation')">Rhythm Rotation</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Shi Karim')">Shi Karim</div><div class="show-g">Eclectic</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Powdersoul')">Powdersoul</div><div class="show-g">Deep House</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Mark Disc Break')">Mark Disc Break</div><div class="show-g">Mixed</div></div></div>
+    </div>
+    <div class="sched-col">
+      <div class="day-title">saturday</div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Disco Borisco Soundsystem')">DBS</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('François de Bonsoir')">François de Bonsoir</div><div class="show-g">French Touch</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('DJ Sol')">DJ Sol</div><div class="show-g">Soul · Jazz</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Martin Depp')">Martin Depp</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Mark Alcock')">Mark Alcock</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Look Busy Collective')">Look Busy Collective</div><div class="show-g">Eclectic</div></div></div>
+    </div>
+    <div class="sched-col">
+      <div class="day-title">sunday</div>
+      <div class="show-item"><span class="show-t">17:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Willy')">Willy</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">18:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Semi-Detached Disco')">Semi-Detached Disco</div><div class="show-g">Disco · Funk</div></div></div>
+      <div class="show-item"><span class="show-t">19:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Angus')">Angus</div><div class="show-g">Electronic</div></div></div>
+      <div class="show-item"><span class="show-t">20:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('Alex Moore')">Alex Moore</div><div class="show-g">Mixed</div></div></div>
+      <div class="show-item"><span class="show-t">21:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('DJ GoodVibes')">DJ GoodVibes</div><div class="show-g">Soulful House</div></div></div>
+      <div class="show-item"><span class="show-t">22:00</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('4 Colours')">4 Colours</div><div class="show-g">Eclectic</div></div></div>
+    </div>
   </div>
 </div>
 
@@ -617,71 +641,53 @@ function showPage(name) {
 document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', e => e.preventDefault()));
 
 // ── HOME SCHEDULE (day-aware) ──
-// ── NOTION SCHEDULE ──
-let shows = [];
-
-async function fetchShows() {
-  try {
-    const res = await fetch('/.netlify/functions/schedule');
-    shows = await res.json();
-    buildSchedulePage();
-    buildQuickSchedule();
-  } catch(e) { console.warn('Schedule fetch failed', e); }
-}
-
-function getUKTime() {
-  const now = new Date();
-  const ukStr = now.toLocaleString('en-GB', { timeZone: 'Europe/London' });
-  const [datePart, timePart] = ukStr.split(', ');
-  const [day, month, year] = datePart.split('/').map(Number);
-  const [hours, minutes] = timePart.split(':').map(Number);
-  const ukDate = new Date(year, month - 1, day, hours, minutes);
-  return { hours, minutes, day: ukDate.getDay() };
-}
-
-function buildSchedulePage() {
-  const days = { Fri: 'sched-fri', Sat: 'sched-sat', Sun: 'sched-sun' };
-  Object.values(days).forEach(id => {
-    const col = document.getElementById(id);
-    if(col) Array.from(col.querySelectorAll('.show-item')).forEach(el => el.remove());
-  });
-  const liveShows = shows.filter(s => ['Fri','Sat','Sun'].includes(s.day));
-  liveShows.forEach(s => {
-    const colId = days[s.day];
-    if(!colId) return;
-    const col = document.getElementById(colId);
-    if(!col) return;
-    const item = document.createElement('div');
-    item.className = 'show-item';
-    const safeName = s.djName.replace(/'/g, "\'");
-    item.innerHTML = '<span class="show-t">' + s.start + '</span><div><div class="show-n" style="cursor:pointer;" onclick="openProfileByName('' + safeName + '')">' + s.show + '</div></div>';
-    col.appendChild(item);
-  });
-}
+const daySchedules = {
+  fri: [
+    { time: '17:00', name: 'Gravy Train' },
+    { time: '18:00', name: 'Dust Down Records' },
+    { time: '19:00', name: 'Rhythm Rotation' },
+    { time: '20:00', name: 'Shi Karim' },
+    { time: '21:00', name: 'Powdersoul' },
+    { time: '22:00', name: 'Mark Disc Break' },
+  ],
+  sat: [
+    { time: '17:00', name: 'Disco Borisco Soundsystem' },
+    { time: '18:00', name: 'François de Bonsoir' },
+    { time: '19:00', name: 'DJ Sol' },
+    { time: '20:00', name: 'Martin Depp' },
+    { time: '21:00', name: 'Mark Alcock' },
+    { time: '22:00', name: 'Look Busy Collective' },
+  ],
+  sun: [
+    { time: '17:00', name: 'Willy' },
+    { time: '18:00', name: 'Semi-Detached Disco' },
+    { time: '19:00', name: 'Angus' },
+    { time: '20:00', name: 'Alex Moore' },
+    { time: '21:00', name: 'DJ GoodVibes' },
+    { time: '22:00', name: '4 Colours' },
+  ]
+};
 
 function buildQuickSchedule() {
-  const { day } = getUKTime();
-  let targetDay, label, dayName;
-  if(day === 6) { targetDay = 'Sat'; label = "Saturday's Schedule"; dayName = 'Sat'; }
-  else if(day === 0) { targetDay = 'Sun'; label = "Sunday's Schedule"; dayName = 'Sun'; }
-  else { targetDay = 'Fri'; label = "Friday's Schedule"; dayName = 'Fri'; }
+  const day = getUKTime().day; // Uses UK timezone automatically
+  let key, label, dayName;
+  if (day === 6) { key = 'sat'; label = "Saturday's Schedule"; dayName = 'Sat'; }
+  else if (day === 0) { key = 'sun'; label = "Sunday's Schedule"; dayName = 'Sun'; }
+  else { key = 'fri'; label = "Friday's Schedule"; dayName = 'Fri'; } // Mon-Fri all show Friday
 
   document.getElementById('scheduleLabel').innerText = label;
   document.getElementById('scheduleDayTitle').innerText = dayName === 'Fri' && day !== 5 ? 'Coming Up Friday' : 'on the schedule';
 
   const ul = document.getElementById('quickSchedule');
   ul.innerHTML = '';
-  const dayShows = shows.filter(s => s.day === targetDay);
-  if(dayShows.length === 0) { setTimeout(buildQuickSchedule, 500); return; }
-  dayShows.forEach(s => {
+  daySchedules[key].forEach(s => {
     const li = document.createElement('li');
-    li.innerHTML = '<span class="qs-time">' + s.start + '</span><span class="qs-name">' + s.show + '</span><span class="qs-day">' + dayName + '</span>';
-    li.onclick = () => openProfileByName(s.djName);
+    li.innerHTML = `<span class="qs-time">${s.time}</span><span class="qs-name" >${s.name}</span><span class="qs-day">${dayName}</span>`;
+    li.onclick = () => openProfileByName(s.name);
     ul.appendChild(li);
   });
 }
 buildQuickSchedule();
-
 
 // ── CONTRIBUTORS ──
 function openProfile(c) {
@@ -761,29 +767,58 @@ function buildContributors() {
 }
 buildContributors();
 
-// ── NOW PLAYING ──
+// ── GOOGLE SHEET NOW PLAYING ──
+let shows = [];
+const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRM_rEP_Xtl00ax3sIqhD18Gk1Z1zIEm1rG1yKJGLdwlCof2FMg1JJnRC3-ns9L0bCxr5brMbO0t2LC/pub?output=tsv";
+
+async function fetchShows() {
+  try {
+    const res = await fetch(sheetUrl + "&t=" + Date.now());
+    const text = await res.text();
+    const rows = text.trim().split("\n");
+    const headers = rows[0].split("\t").map(h => h.trim());
+    shows = rows.slice(1).map(row => {
+      const cols = row.split("\t");
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = (cols[i] || "").trim());
+      return obj;
+    });
+  } catch(e) { console.warn('Sheet fetch failed', e); }
+}
+
+function getUKTime() {
+  // Always uses Europe/London so BST/GMT is handled automatically
+  const now = new Date();
+  const ukStr = now.toLocaleString('en-GB', { timeZone: 'Europe/London' });
+  // ukStr format: "dd/mm/yyyy, hh:mm:ss"
+  const [datePart, timePart] = ukStr.split(', ');
+  const [day, month, year] = datePart.split('/').map(Number);
+  const [hours, minutes] = timePart.split(':').map(Number);
+  const ukDate = new Date(year, month - 1, day, hours, minutes);
+  return { hours, minutes, day: ukDate.getDay() };
+}
+
 function dayMatches(d, n) {
   if (d.toLowerCase()==="daily") return true;
   const m={"Sun":0,"Mon":1,"Tue":2,"Wed":3,"Thu":4,"Fri":5,"Sat":6};
   return m[d]===n;
 }
-
 function timeMatches(s,e,h,m) {
   const [sH,sM]=s.split(":").map(Number);
   const [eH,eM]=e.split(":").map(Number);
   const now=h*60+m;
   const start=sH*60+sM;
   const end=eH*60+eM;
+  // Handle shows crossing midnight (e.g. 22:00 - 00:00)
   if(end === 0 || end < start) {
     return now >= start || now < (end === 0 ? 1440 : end);
   }
   return now>=start && now<end;
 }
-
 function getCurrentShow() {
   const { hours, minutes, day } = getUKTime();
   for(const s of shows){
-    if(dayMatches(s.day, day) && timeMatches(s.start, s.end, hours, minutes)) return s;
+    if(dayMatches(s.Day, day) && timeMatches(s.Start, s.End, hours, minutes)) return s;
   }
   return null;
 }
@@ -791,17 +826,12 @@ function getCurrentShow() {
 async function updateNowPlaying() {
   if(shows.length===0) await fetchShows();
   const cur = getCurrentShow();
-  const name = cur ? cur.show : "Vault Mixes";
-  const img = cur ? (cur.image||"") : "https://res.cloudinary.com/db5yf8okw/image/upload/vault_mixes_NEW_ikblvl.png";
-  const djName = cur ? cur.djName : "";
+  const name = cur ? cur.Show : "Vault Mixes";
+  const img = cur ? (cur.Image||"") : "https://res.cloudinary.com/db5yf8okw/image/upload/vault_mixes_NEW_ikblvl.png";
   document.getElementById('heroShowName').innerText = name;
   document.getElementById('playerShowName').innerText = name;
   if(img){ document.getElementById('heroImg').src = img; document.getElementById('playerImg').src = img; }
-  if(djName) {
-    document.getElementById('heroCircle').onclick = () => openProfileByName(djName);
-  } else {
-    document.getElementById('heroCircle').onclick = null;
-  }
+  if(cur&&cur.Link&&cur.Link!=='#'){ document.getElementById('heroCircle').onclick = ()=>window.open(cur.Link,'_blank'); }
 }
 updateNowPlaying();
 setInterval(updateNowPlaying, 30000);
