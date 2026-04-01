@@ -383,6 +383,20 @@ nav {
 .mobile-menu a:last-child { border-bottom: none; }
 .mobile-menu a:hover, .mobile-menu a.active { color: var(--cream); background: var(--cream-faint); }
 
+/* ── HOME EVENTS BAR ── */
+.home-events-bar {
+  padding: 28px 32px; border-bottom: var(--border);
+  background: var(--cream-faint);
+}
+.home-events-bar .event-item { padding: 10px 0; }
+.home-events-more {
+  display: inline-block; margin-top: 14px;
+  font-size: 11px; font-weight: 900; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--cream-dim);
+  cursor: pointer; transition: color 0.2s;
+}
+.home-events-more:hover { color: var(--cream); }
+
 /* ── EVENTS ── */
 .events-section { padding: 40px 32px; border-bottom: var(--border); }
 .events-section-title {
@@ -486,6 +500,7 @@ nav {
   .about-stats { grid-template-columns: repeat(3,1fr); }
 
   /* EVENTS */
+  .home-events-bar { padding: 20px 16px; }
   .events-section { padding: 28px 16px; }
   .event-modal-top { grid-template-columns: 1fr; }
   .event-modal-img { width: 100%; height: auto; border-right: none; border-bottom: var(--border); }
@@ -546,6 +561,11 @@ nav {
         <span id="listenBtnText">▶ listen live</span>
       </button>
     </div>
+  </div>
+  <div id="home-events" style="display:none" class="home-events-bar">
+    <div class="panel-label" style="margin-bottom:16px;">&#9733; upcoming events</div>
+    <div id="homeEventsList"></div>
+    <a class="home-events-more" onclick="showPage('events')">view all events →</a>
   </div>
   <div class="home-grid">
     <div class="home-panel">
@@ -987,6 +1007,13 @@ async function fetchEvents() {
     past.forEach(e => pastEl.appendChild(buildEventItem(e)));
   } else {
     pastEl.innerHTML = `<p class="events-empty">no past events yet.</p>`;
+  }
+
+  // Populate homepage events bar if there are upcoming events
+  if (upcoming.length) {
+    const homeList = document.getElementById('homeEventsList');
+    upcoming.forEach(e => homeList.appendChild(buildEventItem(e)));
+    document.getElementById('home-events').style.display = 'block';
   }
 }
 fetchEvents();
