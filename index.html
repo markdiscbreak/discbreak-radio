@@ -28,7 +28,6 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-style: italic;
   min-height: 100vh;
-  padding-bottom: var(--player-height);
   overflow-x: hidden;
 }
 
@@ -54,17 +53,12 @@ nav {
   background: var(--green);
   border-bottom: var(--border);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-  min-height: 80px;
-  height: auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  align-items: stretch;
+  height: 80px;
 }
-.nav-logo { cursor: pointer; display: flex; align-items: center; }
+.nav-logo { cursor: pointer; display: flex; align-items: center; padding: 0 28px; border-right: var(--border); flex-shrink: 0; }
 .nav-logo img { height: auto; width: 124px; display: block; }
-.nav-links { display: flex; gap: 0; list-style: none; }
+.nav-links { display: flex; gap: 0; list-style: none; align-items: center; padding: 0 8px; }
 .nav-links a {
   display: block;
   font-size: 13px; font-weight: 900; font-style: italic;
@@ -217,7 +211,6 @@ a.btn-listen { text-decoration: none; }
   backdrop-filter: blur(8px);
   align-items: flex-start; justify-content: center;
   padding: 20px;
-  padding-bottom: calc(var(--player-height) + 20px);
   overflow-y: auto;
 }
 #profile-modal.open { display: flex; animation: fadeIn 0.2s ease; }
@@ -337,10 +330,10 @@ footer {
 
 /* ── PLAYER BAR ── */
 #player-bar {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  height: var(--player-height);
-  background: var(--green-dark); border-top: var(--border);
-  z-index: 1000; display: flex; align-items: center; padding: 0 24px; gap: 16px;
+  flex: 1;
+  display: flex; align-items: center;
+  padding: 0 24px; gap: 16px;
+  border-right: var(--border);
 }
 .player-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: var(--border); flex-shrink: 0; }
 .player-info { flex: 1; min-width: 0; }
@@ -454,7 +447,7 @@ footer {
   display: none; position: fixed; inset: 0; z-index: 500;
   background: rgba(30,50,33,0.92); backdrop-filter: blur(8px);
   align-items: flex-start; justify-content: center;
-  padding: 20px; padding-bottom: calc(var(--player-height) + 20px);
+  padding: 20px;
   overflow-y: auto;
 }
 #event-modal.open { display: flex; animation: fadeIn 0.2s ease; }
@@ -499,11 +492,25 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   /* NAV */
-  nav { padding: 0 16px; }
+  nav { height: auto; min-height: 60px; padding: 0 16px; align-items: center; }
+  .nav-logo { border-right: none; padding: 0; }
+  .nav-logo img { width: 94px; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
-  .nav-logo img { width: 94px; }
   .mobile-ticker { display: block; }
+
+  /* PLAYER — restore to fixed bottom on mobile */
+  #player-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: var(--player-height);
+    background: var(--green-dark); border-top: var(--border); border-right: none;
+    z-index: 1000; padding: 0 16px; gap: 12px; flex: none;
+  }
+  body { padding-bottom: var(--player-height); }
+  #profile-modal { padding-bottom: calc(var(--player-height) + 20px); }
+  #event-modal { padding-bottom: calc(var(--player-height) + 20px); }
+  .vol-wrap { display: none; }
+  .player-show { font-size: 14px; }
 
   /* HERO */
   .hero { grid-template-columns: 1fr; gap: 24px; padding: 32px 16px; }
@@ -551,10 +558,6 @@ footer {
   /* FOOTER */
   footer { padding: 16px; }
 
-  /* PLAYER */
-  #player-bar { padding: 0 16px; gap: 12px; }
-  .vol-wrap { display: none; }
-  .player-show { font-size: 14px; }
 }
 </style>
 </head>
@@ -577,6 +580,20 @@ footer {
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
     <img src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio">
+  </div>
+  <div id="player-bar">
+    <img class="player-img" id="playerImg" src="https://res.cloudinary.com/db5yf8okw/image/upload/vault_mixes_NEW_ikblvl.png" alt="">
+    <div class="player-info">
+      <div class="player-label"><span class="live-dot"></span> On Air Now</div>
+      <div class="player-show" id="playerShowName">Loading...</div>
+    </div>
+    <div class="player-right">
+      <div class="vol-wrap">
+        <span class="vol-icon">🔈</span>
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.8">
+      </div>
+      <button id="playBtn">▶</button>
+    </div>
   </div>
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
@@ -777,22 +794,6 @@ footer {
     </a>
   </div>
 </footer>
-
-<!-- ══════════════ PLAYER BAR ══════════════ -->
-<div id="player-bar">
-  <img class="player-img" id="playerImg" src="https://res.cloudinary.com/db5yf8okw/image/upload/vault_mixes_NEW_ikblvl.png" alt="">
-  <div class="player-info">
-    <div class="player-label"><span class="live-dot"></span> On Air Now</div>
-    <div class="player-show" id="playerShowName">Loading...</div>
-  </div>
-  <div class="player-right">
-    <div class="vol-wrap">
-      <span class="vol-icon">🔈</span>
-      <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.8">
-    </div>
-    <button id="playBtn">▶</button>
-  </div>
-</div>
 
 <audio id="radio" preload="none">
   <source src="https://usa19.fastcast4u.com:8340/;?type=http&nocache=1774562428" type="audio/mpeg">
