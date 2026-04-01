@@ -694,10 +694,17 @@ footer {
     </div>
     <div class="about-right">
       <h2>drop us a line</h2>
-      <div class="field"><label>Your Name</label><input type="text" placeholder="e.g. DJ Example"></div>
-      <div class="field"><label>Email</label><input type="email" placeholder="hello@example.com"></div>
-      <div class="field"><label>Message</label><textarea rows="5" placeholder="tell us about yourself and your music..."></textarea></div>
-      <button class="btn-submit">send message</button>
+      <form name="contact" id="contactForm" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact">
+        <p style="display:none"><input name="bot-field"></p>
+        <div class="field"><label>Your Name</label><input type="text" name="name" placeholder="e.g. DJ Example" required></div>
+        <div class="field"><label>Email</label><input type="email" name="email" placeholder="hello@example.com" required></div>
+        <div class="field"><label>Message</label><textarea name="message" rows="5" placeholder="tell us about yourself and your music..." required></textarea></div>
+        <button type="submit" class="btn-submit">send message</button>
+      </form>
+      <div id="contactSuccess" style="display:none">
+        <p class="panel-body">thanks for getting in touch, we'll get back to you shortly x</p>
+      </div>
     </div>
   </div>
 </div>
@@ -1090,6 +1097,20 @@ function togglePlay() {
     isPlaying=false;
   }
 }
+// ── CONTACT FORM ──
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  try {
+    await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data).toString() });
+    form.style.display = 'none';
+    document.getElementById('contactSuccess').style.display = 'block';
+  } catch(err) {
+    console.warn('Form submission failed', err);
+  }
+});
+
 // ── MOBILE MENU ──
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
