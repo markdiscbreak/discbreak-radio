@@ -427,15 +427,18 @@ nav {
 #event-modal.open { display: flex; animation: fadeIn 0.2s ease; }
 .event-box {
   background: var(--green-dark); border: var(--border);
-  max-width: 600px; width: 100%; position: relative; margin: auto;
+  max-width: 680px; width: 100%; position: relative; margin: auto;
 }
-.event-modal-img { width: 100%; height: auto; display: block; border-bottom: var(--border); }
-.event-modal-body { padding: 24px; }
+.event-modal-top {
+  display: grid; grid-template-columns: 240px 1fr;
+}
+.event-modal-img { width: 240px; height: 240px; object-fit: cover; display: block; border-right: var(--border); flex-shrink: 0; }
+.event-modal-body { padding: 24px 24px 20px; border-bottom: var(--border); display: flex; flex-direction: column; justify-content: flex-end; }
 .event-modal-date { font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 8px; }
-.event-modal-name { font-size: 28px; font-weight: 900; font-style: italic; color: var(--cream); line-height: 1.1; margin-bottom: 4px; }
-.event-modal-venue { font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 16px; }
-.event-modal-desc { font-size: 13px; font-style: italic; line-height: 1.9; color: var(--cream-dim); border-top: var(--border); padding-top: 16px; margin-top: 4px; }
-.event-modal-links { padding: 16px 24px; border-top: var(--border); display: flex; gap: 12px; }
+.event-modal-name { font-size: 26px; font-weight: 900; font-style: italic; color: var(--cream); line-height: 1.1; margin-bottom: 4px; }
+.event-modal-venue { font-size: 13px; font-style: italic; color: var(--cream-dim); }
+.event-modal-desc { padding: 16px 24px; font-size: 13px; font-style: italic; line-height: 1.9; color: var(--cream-dim); border-bottom: var(--border); }
+.event-modal-links { padding: 16px 24px; display: flex; gap: 12px; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
@@ -484,6 +487,8 @@ nav {
 
   /* EVENTS */
   .events-section { padding: 28px 16px; }
+  .event-modal-top { grid-template-columns: 1fr; }
+  .event-modal-img { width: 100%; height: 220px; border-right: none; border-bottom: var(--border); }
 
   /* PLAYER */
   #player-bar { padding: 0 16px; gap: 12px; }
@@ -600,13 +605,15 @@ nav {
 <div id="event-modal">
   <div class="event-box">
     <button class="profile-close" onclick="closeEventModal()">✕</button>
-    <img class="event-modal-img" id="event-modal-img" src="" alt="" style="display:none">
-    <div class="event-modal-body">
-      <div class="event-modal-date" id="event-modal-date"></div>
-      <div class="event-modal-name" id="event-modal-name"></div>
-      <div class="event-modal-venue" id="event-modal-venue"></div>
-      <div class="event-modal-desc" id="event-modal-desc" style="display:none"></div>
+    <div class="event-modal-top">
+      <img class="event-modal-img" id="event-modal-img" src="" alt="" style="display:none">
+      <div class="event-modal-body">
+        <div class="event-modal-date" id="event-modal-date"></div>
+        <div class="event-modal-name" id="event-modal-name"></div>
+        <div class="event-modal-venue" id="event-modal-venue"></div>
+      </div>
     </div>
+    <div class="event-modal-desc" id="event-modal-desc" style="display:none"></div>
     <div class="event-modal-links" id="event-modal-links" style="display:none"></div>
   </div>
 </div>
