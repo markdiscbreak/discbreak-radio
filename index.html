@@ -600,8 +600,9 @@ nav {
   <source src="https://usa19.fastcast4u.com:8340/;?type=http&nocache=1774562428" type="audio/mpeg">
 </audio>
 
-<script src="contributors-data.js"></script>
 <script>
+let CONTRIBUTORS = [];
+
 // ── NAVIGATION ──
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -774,6 +775,7 @@ document.getElementById('profile-modal').addEventListener('click', function(e) {
 
 function buildContributors() {
   const grid = document.getElementById('contributorsGrid');
+  grid.innerHTML = '';
   const active = CONTRIBUTORS.filter(c => c.active);
   active.forEach(c => {
     const card = document.createElement('div');
@@ -800,7 +802,15 @@ function buildContributors() {
     grid.appendChild(card);
   });
 }
-buildContributors();
+
+async function fetchContributors() {
+  try {
+    const res = await fetch('/.netlify/functions/contributors');
+    CONTRIBUTORS = await res.json();
+  } catch(e) { console.warn('Contributors fetch failed', e); }
+  buildContributors();
+}
+fetchContributors();
 
 // ── NOTION BANNER ──
 async function loadBanner() {
