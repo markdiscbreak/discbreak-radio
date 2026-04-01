@@ -383,6 +383,60 @@ nav {
 .mobile-menu a:last-child { border-bottom: none; }
 .mobile-menu a:hover, .mobile-menu a.active { color: var(--cream); background: var(--cream-faint); }
 
+/* ── EVENTS ── */
+.events-section { padding: 40px 32px; border-bottom: var(--border); }
+.events-section-title {
+  font-size: 11px; font-weight: 900; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--cream-dim);
+  margin-bottom: 20px; padding-bottom: 14px; border-bottom: var(--border);
+}
+.event-item {
+  display: flex; align-items: center; gap: 20px;
+  padding: 14px 0; border-bottom: 1px solid rgba(234,235,237,0.12);
+  cursor: pointer; transition: opacity 0.15s;
+}
+.event-item:last-child { border-bottom: none; }
+.event-item:hover { opacity: 0.7; }
+.event-thumb {
+  width: 64px; height: 64px; flex-shrink: 0;
+  overflow: hidden; border: var(--border);
+}
+.event-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.event-thumb-placeholder {
+  width: 64px; height: 64px; flex-shrink: 0;
+  background: var(--cream-faint); border: var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 900; color: var(--cream-dim);
+}
+.event-info { flex: 1; min-width: 0; }
+.event-date { font-size: 11px; font-weight: 900; letter-spacing: 1.5px; color: var(--cream-dim); margin-bottom: 4px; }
+.event-name { font-size: 15px; font-weight: 900; font-style: italic; color: var(--cream); line-height: 1.2; }
+.event-venue { font-size: 12px; font-style: italic; color: var(--cream-dim); margin-top: 2px; }
+.event-desc { font-size: 12px; font-style: italic; color: var(--cream-dim); margin-top: 3px; }
+.event-ticket { flex-shrink: 0; font-size: 10px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; border: var(--border); padding: 6px 12px; color: var(--cream); white-space: nowrap; }
+.events-empty { font-size: 14px; font-style: italic; color: var(--cream-dim); padding: 20px 0; }
+
+/* ── EVENT MODAL ── */
+#event-modal {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: rgba(30,50,33,0.92); backdrop-filter: blur(8px);
+  align-items: flex-start; justify-content: center;
+  padding: 20px; padding-bottom: calc(var(--player-height) + 20px);
+  overflow-y: auto;
+}
+#event-modal.open { display: flex; animation: fadeIn 0.2s ease; }
+.event-box {
+  background: var(--green-dark); border: var(--border);
+  max-width: 600px; width: 100%; position: relative; margin: auto;
+}
+.event-modal-img { width: 100%; max-height: 360px; object-fit: cover; display: block; border-bottom: var(--border); }
+.event-modal-body { padding: 24px; }
+.event-modal-date { font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 8px; }
+.event-modal-name { font-size: 28px; font-weight: 900; font-style: italic; color: var(--cream); line-height: 1.1; margin-bottom: 4px; }
+.event-modal-venue { font-size: 13px; font-style: italic; color: var(--cream-dim); margin-bottom: 16px; }
+.event-modal-desc { font-size: 13px; font-style: italic; line-height: 1.9; color: var(--cream-dim); border-top: var(--border); padding-top: 16px; margin-top: 4px; }
+.event-modal-links { padding: 16px 24px; border-top: var(--border); display: flex; gap: 12px; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   /* NAV */
@@ -428,6 +482,9 @@ nav {
   .about-left h1 { font-size: 36px; }
   .about-stats { grid-template-columns: repeat(3,1fr); }
 
+  /* EVENTS */
+  .events-section { padding: 28px 16px; }
+
   /* PLAYER */
   #player-bar { padding: 0 16px; gap: 12px; }
   .vol-wrap { display: none; }
@@ -442,6 +499,7 @@ nav {
   <a href="#" onclick="showPage('home');closeMenu()" id="mob-home" class="active">Home</a>
   <a href="#" onclick="showPage('schedule');closeMenu()" id="mob-schedule">Schedule</a>
   <a href="#" onclick="showPage('contributors');closeMenu()" id="mob-contributors">Contributors</a>
+  <a href="#" onclick="showPage('events');closeMenu()" id="mob-events">Events</a>
   <a href="#" onclick="showPage('about');closeMenu()" id="mob-about">About</a>
   <a href="#" onclick="showPage('contact');closeMenu()" id="mob-contact">Contact</a>
 </div>
@@ -458,6 +516,7 @@ nav {
     <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
     <li><a href="#" onclick="showPage('schedule')" id="nav-schedule">Schedule</a></li>
     <li><a href="#" onclick="showPage('contributors')" id="nav-contributors">Contributors</a></li>
+    <li><a href="#" onclick="showPage('events')" id="nav-events">Events</a></li>
     <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
     <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
@@ -519,6 +578,37 @@ nav {
     <p>introducing our djs and selectors.</p>
   </div>
   <div class="contributors-grid" id="contributorsGrid"></div>
+</div>
+
+<!-- ══════════════ EVENTS ══════════════ -->
+<div class="page" id="page-events">
+  <div class="page-header">
+    <h1>events</h1>
+    <p>disc break live events & parties.</p>
+  </div>
+  <div class="events-section" id="upcomingSection">
+    <div class="events-section-title">upcoming</div>
+    <div id="upcomingEvents"></div>
+  </div>
+  <div class="events-section" id="pastSection">
+    <div class="events-section-title">past events</div>
+    <div id="pastEvents"></div>
+  </div>
+</div>
+
+<!-- EVENT MODAL -->
+<div id="event-modal">
+  <div class="event-box">
+    <button class="profile-close" onclick="closeEventModal()">✕</button>
+    <img class="event-modal-img" id="event-modal-img" src="" alt="" style="display:none">
+    <div class="event-modal-body">
+      <div class="event-modal-date" id="event-modal-date"></div>
+      <div class="event-modal-name" id="event-modal-name"></div>
+      <div class="event-modal-venue" id="event-modal-venue"></div>
+      <div class="event-modal-desc" id="event-modal-desc" style="display:none"></div>
+    </div>
+    <div class="event-modal-links" id="event-modal-links" style="display:none"></div>
+  </div>
 </div>
 
 <!-- ══════════════ ABOUT ══════════════ -->
@@ -811,6 +901,88 @@ async function fetchContributors() {
   buildContributors();
 }
 fetchContributors();
+
+// ── EVENTS ──
+function formatEventDate(dateStr) {
+  if (!dateStr) return '';
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function openEventModal(ev) {
+  const img = document.getElementById('event-modal-img');
+  if (ev.image) { img.src = ev.image; img.style.display = 'block'; }
+  else { img.style.display = 'none'; }
+  document.getElementById('event-modal-date').innerText = formatEventDate(ev.date);
+  document.getElementById('event-modal-name').innerText = ev.name;
+  document.getElementById('event-modal-venue').innerText = ev.venue || '';
+  const descEl = document.getElementById('event-modal-desc');
+  if (ev.description) { descEl.innerText = ev.description; descEl.style.display = 'block'; }
+  else { descEl.style.display = 'none'; }
+  const linksEl = document.getElementById('event-modal-links');
+  if (ev.link) {
+    linksEl.innerHTML = `<a class="social-link" href="${ev.link}" target="_blank">↗ Get Tickets</a>`;
+    linksEl.style.display = 'flex';
+  } else { linksEl.style.display = 'none'; }
+  document.getElementById('event-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEventModal() {
+  document.getElementById('event-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('event-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeEventModal();
+});
+
+function buildEventItem(ev) {
+  const item = document.createElement('div');
+  item.className = 'event-item';
+  item.onclick = () => openEventModal(ev);
+  const thumb = ev.image
+    ? `<div class="event-thumb"><img src="${ev.image}" alt="${ev.name}" onerror="this.parentNode.innerHTML='DB'"></div>`
+    : `<div class="event-thumb-placeholder">DB</div>`;
+  const ticket = ev.link ? `<span class="event-ticket">Tickets ↗</span>` : '';
+  item.innerHTML = `
+    ${thumb}
+    <div class="event-info">
+      <div class="event-date">${formatEventDate(ev.date)}</div>
+      <div class="event-name">${ev.name}</div>
+      ${ev.venue ? `<div class="event-venue">${ev.venue}</div>` : ''}
+      ${ev.description ? `<div class="event-desc">${ev.description}</div>` : ''}
+    </div>
+    ${ticket}`;
+  return item;
+}
+
+async function fetchEvents() {
+  let events = [];
+  try {
+    const res = await fetch('/.netlify/functions/events');
+    events = await res.json();
+  } catch(e) { console.warn('Events fetch failed', e); }
+
+  const today = new Date().toISOString().split('T')[0];
+  const upcoming = events.filter(e => e.date >= today);
+  const past     = events.filter(e => e.date < today);
+
+  const upcomingEl = document.getElementById('upcomingEvents');
+  if (upcoming.length) {
+    upcoming.forEach(e => upcomingEl.appendChild(buildEventItem(e)));
+  } else {
+    upcomingEl.innerHTML = `<p class="events-empty">check back for new dates.</p>`;
+  }
+
+  const pastEl = document.getElementById('pastEvents');
+  if (past.length) {
+    past.forEach(e => pastEl.appendChild(buildEventItem(e)));
+  } else {
+    pastEl.innerHTML = `<p class="events-empty">no past events yet.</p>`;
+  }
+}
+fetchEvents();
 
 // ── NOTION BANNER ──
 async function loadBanner() {
