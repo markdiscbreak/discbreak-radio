@@ -316,6 +316,24 @@ nav {
 }
 .btn-submit:hover { background: var(--cream); color: var(--green); }
 
+/* ── FOOTER ── */
+footer {
+  border-top: var(--border);
+  padding: 20px 32px;
+}
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-copy {
+  font-size: 11px; font-weight: 400; font-style: italic;
+  letter-spacing: 0.5px; color: var(--cream-dim);
+}
+.footer-insta {
+  color: var(--cream); transition: opacity 0.2s;
+  display: flex; align-items: center;
+}
+.footer-insta:hover { opacity: 0.6; }
+
 /* ── PLAYER BAR ── */
 #player-bar {
   position: fixed; bottom: 0; left: 0; right: 0;
@@ -504,6 +522,9 @@ nav {
   .events-section { padding: 28px 16px; }
   .event-modal-top { grid-template-columns: 1fr; }
   .event-modal-img { width: 100%; height: auto; border-right: none; border-bottom: var(--border); }
+
+  /* FOOTER */
+  footer { padding: 16px; }
 
   /* PLAYER */
   #player-bar { padding: 0 16px; gap: 12px; }
@@ -696,6 +717,20 @@ nav {
     <div class="profile-links" id="profile-links"></div>
   </div>
 </div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© Disc Break Radio · Made with love in Manchester.</span>
+    <a href="https://www.instagram.com/discbreakradio/" target="_blank" class="footer-insta" aria-label="Instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+  </div>
+</footer>
 
 <!-- ══════════════ PLAYER BAR ══════════════ -->
 <div id="player-bar">
