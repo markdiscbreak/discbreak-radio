@@ -1045,11 +1045,12 @@ function togglePlay() {
   if(!isPlaying){
     audio.play(); btn.innerHTML="⏸"; btn.classList.add("playing");
     playerImg.classList.add("spinning"); heroImg.classList.add("spinning");
+    playerImg.style.animationPlayState = 'running'; heroImg.style.animationPlayState = 'running';
     document.getElementById('listenBtnText').innerText = "⏸ pause";
     isPlaying=true;
   } else {
     audio.pause(); btn.innerHTML="▶"; btn.classList.remove("playing");
-    playerImg.classList.remove("spinning"); heroImg.classList.remove("spinning");
+    playerImg.style.animationPlayState = 'paused'; heroImg.style.animationPlayState = 'paused';
     document.getElementById('listenBtnText').innerText = "▶ listen live";
     isPlaying=false;
   }
