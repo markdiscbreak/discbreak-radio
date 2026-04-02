@@ -58,6 +58,8 @@ nav {
 }
 .nav-logo { cursor: pointer; display: flex; align-items: center; padding: 0 28px; border-right: var(--border); flex-shrink: 0; }
 .nav-logo img { height: 54px; width: auto; display: block; }
+.nav-logo-right { display: flex; align-items: center; padding: 0 24px; border-left: var(--border); flex-shrink: 0; }
+.nav-logo-right img { height: 44px; width: auto; display: block; }
 .nav-links { display: flex; gap: 0; list-style: none; align-items: center; padding: 0 8px; }
 .nav-links a {
   display: block;
@@ -331,7 +333,7 @@ footer {
 /* ── PLAYER BAR ── */
 #player-bar {
   flex: 1;
-  display: flex; align-items: center;
+  display: flex; align-items: center; justify-content: center;
   padding: 0 24px; gap: 16px;
   border-right: var(--border);
 }
@@ -470,9 +472,10 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   /* NAV */
-  nav { height: auto; min-height: 72px; padding: 14px 16px; align-items: center; }
+  nav { height: auto; min-height: 84px; padding: 18px 16px; align-items: center; }
   .nav-logo { border-right: none; padding: 0; }
-  .nav-logo img { height: 46px; width: auto; }
+  .nav-logo img { width: 94px; height: auto; }
+  .nav-logo-right { display: none; }
   .nav-links { display: none; }
   .hamburger { display: flex; margin-left: auto; }
 
@@ -580,6 +583,9 @@ footer {
     <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
     <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
+  <div class="nav-logo-right" onclick="showPage('home')">
+    <img src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio">
+  </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
