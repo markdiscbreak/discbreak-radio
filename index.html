@@ -376,8 +376,8 @@ footer {
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .mobile-menu {
   display: none;
-  position: fixed;
-  top: 84px;
+  position: absolute;
+  top: 100%;
   left: 0; right: 0;
   background: var(--green-dark);
   border-bottom: var(--border);
@@ -549,16 +549,6 @@ footer {
 </head>
 <body>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#" onclick="showPage('home');closeMenu()" id="mob-home" class="active">Home</a>
-  <a href="#" onclick="showPage('schedule');closeMenu()" id="mob-schedule">Schedule</a>
-  <a href="#" onclick="showPage('contributors');closeMenu()" id="mob-contributors">Contributors</a>
-  <a href="#" onclick="showPage('events');closeMenu()" id="mob-events">Events</a>
-  <a href="#" onclick="showPage('about');closeMenu()" id="mob-about">About</a>
-  <a href="#" onclick="showPage('contact');closeMenu()" id="mob-contact">Contact</a>
-</div>
-
 <!-- NOTION BANNER -->
 <div id="site-banner"><span id="banner-message"></span></div>
 
@@ -592,6 +582,15 @@ footer {
   <button class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="showPage('home');closeMenu()" id="mob-home" class="active">Home</a>
+    <a href="#" onclick="showPage('schedule');closeMenu()" id="mob-schedule">Schedule</a>
+    <a href="#" onclick="showPage('contributors');closeMenu()" id="mob-contributors">Contributors</a>
+    <a href="#" onclick="showPage('events');closeMenu()" id="mob-events">Events</a>
+    <a href="#" onclick="showPage('about');closeMenu()" id="mob-about">About</a>
+    <a href="#" onclick="showPage('contact');closeMenu()" id="mob-contact">Contact</a>
+  </div>
 </nav>
 
 <!-- ══════════════ HOME ══════════════ -->
