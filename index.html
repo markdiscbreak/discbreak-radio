@@ -843,10 +843,10 @@ function getCurrentShow() {
 function buildSchedulePage() {
   const cols = document.querySelector('.schedule-cols');
   cols.innerHTML = '';
-  const days = ['Daily', 'Fri', 'Sat', 'Sun'];
-  const dayLabels = { Daily: 'mon – thu', Fri: 'friday', Sat: 'saturday', Sun: 'sunday' };
+  const days = ['Fri', 'Sat', 'Sun'];
+  const dayLabels = { Fri: 'friday', Sat: 'saturday', Sun: 'sunday' };
   days.forEach(d => {
-    const dayShows = shows.filter(s => s.day === d || s.day.toLowerCase() === d.toLowerCase());
+    const dayShows = shows.filter(s => s.day === d || s.day.toLowerCase() === 'daily');
     if (!dayShows.length) return;
     const col = document.createElement('div');
     col.className = 'sched-col';
@@ -874,7 +874,7 @@ function buildQuickSchedule() {
 
   const ul = document.getElementById('quickSchedule');
   ul.innerHTML = '';
-  const dayShows = shows.filter(s => s.day === key);
+  const dayShows = shows.filter(s => s.day === key || s.day.toLowerCase() === 'daily');
   dayShows.forEach(s => {
     const li = document.createElement('li');
     li.innerHTML = `<span class="qs-time">${s.start}</span><span class="qs-name">${s.show}</span><span class="qs-day">${dayName}</span>`;
