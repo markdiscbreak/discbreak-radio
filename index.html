@@ -130,6 +130,9 @@ a.btn-listen { text-decoration: none; }
 .panel-title { font-size: 28px; font-weight: 900; font-style: italic; color: var(--cream); margin-bottom: 16px; line-height: 1.1; }
 .panel-body { font-size: 15px; font-style: italic; line-height: 1.5; color: #fff; margin: 0; }
 .panel-body a { color: var(--cream); text-decoration: underline; cursor: pointer; }
+.panel-top-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.panel-top-text { flex: 1; }
+.panel-logo { height: 80px; width: auto; flex-shrink: 0; }
 .quick-schedule { list-style: none; margin-top: 4px; }
 .quick-schedule li {
   display: flex; align-items: center; gap: 14px;
@@ -505,6 +508,7 @@ footer {
   /* HOME PANELS */
   .home-grid { grid-template-columns: 1fr; }
   .home-panel { border-right: none; border-bottom: var(--border); padding: 28px 16px; }
+  .panel-logo { display: none; }
 
   /* SCHEDULE */
   .page-header { padding: 28px 16px 20px; }
@@ -628,9 +632,13 @@ footer {
       <ul class="quick-schedule" id="quickSchedule"></ul>
     </div>
     <div class="home-panel">
-      <img src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio" style="height:60px; width:auto; display:block; margin-bottom:20px; align-self:flex-start;">
-      <div class="panel-title">just good music</div>
-      <p class="panel-body">independent online radio. <br>no ads. just good music.<br>based in manchester.<br>broadcasting globally.</p>
+      <div class="panel-top-row">
+        <div class="panel-top-text">
+          <div class="panel-title">just good music</div>
+          <p class="panel-body">independent online radio. <br>no ads. just good music.<br>based in manchester.<br>broadcasting globally.</p>
+        </div>
+        <img class="panel-logo" src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio">
+      </div>
       <div class="panel-title" style="margin-top:28px;">get involved</div>
       <p class="panel-body">disc break showcases mixes from established and undiscovered djs.<br>help us build a network of like-minded music lovers. <a onclick="showPage('contact')">get in touch</a></p>
     </div>
