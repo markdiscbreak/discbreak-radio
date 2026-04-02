@@ -843,10 +843,10 @@ function getCurrentShow() {
 function buildSchedulePage() {
   const cols = document.querySelector('.schedule-cols');
   cols.innerHTML = '';
-  const days = ['Fri', 'Sat', 'Sun'];
-  const dayLabels = { Fri: 'friday', Sat: 'saturday', Sun: 'sunday' };
+  const days = ['Daily', 'Fri', 'Sat', 'Sun'];
+  const dayLabels = { Daily: 'mon – thu', Fri: 'friday', Sat: 'saturday', Sun: 'sunday' };
   days.forEach(d => {
-    const dayShows = shows.filter(s => s.day === d);
+    const dayShows = shows.filter(s => s.day === d || s.day.toLowerCase() === d.toLowerCase());
     if (!dayShows.length) return;
     const col = document.createElement('div');
     col.className = 'sched-col';
