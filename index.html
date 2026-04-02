@@ -373,10 +373,13 @@ footer {
   background: var(--cream);
   transition: all 0.3s;
 }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .mobile-menu {
   display: none;
   position: fixed;
-  top: 80px;
+  top: 84px;
   left: 0; right: 0;
   background: var(--green-dark);
   border-bottom: var(--border);
@@ -1140,9 +1143,11 @@ document.getElementById('contactForm').addEventListener('submit', async function
 // ── MOBILE MENU ──
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('open');
 }
 function closeMenu() {
   document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
 }
 
 // Update mobile menu active state
