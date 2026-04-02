@@ -150,7 +150,7 @@ a.btn-listen { text-decoration: none; }
 .page-header-text { flex: 1; }
 .page-header h1 { font-size: clamp(48px, 7vw, 96px); font-weight: 900; font-style: italic; line-height: 0.95; color: var(--cream); }
 .page-header p { color: var(--cream-dim); font-size: 15px; font-style: italic; margin-top: 10px; }
-.page-header-logo { height: 90px; width: auto; display: block; flex-shrink: 0; margin-left: 32px; }
+.page-header-logo { height: 120px; width: auto; display: block; flex-shrink: 0; margin-left: 32px; }
 .vault-banner {
   padding: 14px 32px; border-bottom: var(--border);
   display: flex; align-items: center; gap: 16px; background: var(--cream-faint);
@@ -1032,14 +1032,14 @@ document.getElementById('event-modal').addEventListener('click', function(e) {
   if (e.target === this) closeEventModal();
 });
 
-function buildEventItem(ev) {
+function buildEventItem(ev, isPast) {
   const item = document.createElement('div');
   item.className = 'event-item';
   item.onclick = () => openEventModal(ev);
   const thumb = ev.image
     ? `<div class="event-thumb"><img src="${ev.image}" alt="${ev.name}" onerror="this.parentNode.innerHTML='DB'"></div>`
     : `<div class="event-thumb-placeholder">DB</div>`;
-  const ticket = ev.link ? `<span class="event-ticket">Tickets ↗</span>` : '';
+  const ticket = (!isPast && ev.link) ? `<a class="event-ticket" href="${ev.link}" target="_blank" onclick="event.stopPropagation()">Tickets ↗</a>` : '';
   item.innerHTML = `
     ${thumb}
     <div class="event-info">
@@ -1065,14 +1065,14 @@ async function fetchEvents() {
 
   const upcomingEl = document.getElementById('upcomingEvents');
   if (upcoming.length) {
-    upcoming.forEach(e => upcomingEl.appendChild(buildEventItem(e)));
+    upcoming.forEach(e => upcomingEl.appendChild(buildEventItem(e, false)));
   } else {
     upcomingEl.innerHTML = `<p class="events-empty">check back for new dates.</p>`;
   }
 
   const pastEl = document.getElementById('pastEvents');
   if (past.length) {
-    past.forEach(e => pastEl.appendChild(buildEventItem(e)));
+    past.forEach(e => pastEl.appendChild(buildEventItem(e, true)));
   } else {
     pastEl.innerHTML = `<p class="events-empty">no past events yet.</p>`;
   }
