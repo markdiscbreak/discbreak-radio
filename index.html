@@ -470,9 +470,9 @@ footer {
 .mobile-ticker {
   display: none;
   overflow: hidden;
-  border-bottom: var(--border);
-  background: var(--cream);
-  padding: 8px 0;
+  border-top: 1px solid rgba(234,235,237,0.35);
+  background: transparent;
+  padding: 7px 0;
 }
 .ticker-track {
   display: inline-flex;
@@ -482,7 +482,7 @@ footer {
 .ticker-track span {
   font-size: 11px; font-weight: 900; font-style: italic;
   letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--green);
+  color: var(--cream);
 }
 @keyframes ticker {
   0%   { transform: translateX(0); }
@@ -492,12 +492,12 @@ footer {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   /* NAV */
-  nav { height: auto; min-height: 60px; padding: 10px 16px; align-items: center; }
+  nav { height: auto; min-height: 70px; padding: 12px 16px 0; align-items: center; flex-wrap: wrap; }
   .nav-logo { border-right: none; padding: 0; }
-  .nav-logo img { height: 40px; width: auto; }
+  .nav-logo img { height: 46px; width: auto; }
   .nav-links { display: none; }
   .hamburger { display: flex; margin-left: auto; }
-  .mobile-ticker { display: block; }
+  .mobile-ticker { display: block; flex-basis: calc(100% + 32px); margin-left: -16px; margin-top: 10px; }
 
   /* PLAYER — restore to fixed bottom on mobile */
   #player-bar {
@@ -606,15 +606,13 @@ footer {
   <button class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
-</nav>
-
-<!-- MOBILE TICKER -->
-<div class="mobile-ticker">
-  <div class="ticker-track">
-    <span>just good music 24/7 &nbsp;·&nbsp; made with love in manchester &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <span>just good music 24/7 &nbsp;·&nbsp; made with love in manchester &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <div class="mobile-ticker">
+    <div class="ticker-track">
+      <span>just good music 24/7 &nbsp;·&nbsp; made with love in manchester &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <span>just good music 24/7 &nbsp;·&nbsp; made with love in manchester &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>
   </div>
-</div>
+</nav>
 
 <!-- ══════════════ HOME ══════════════ -->
 <div class="page active" id="page-home">
