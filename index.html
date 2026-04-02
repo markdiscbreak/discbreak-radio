@@ -601,10 +601,21 @@ footer {
     <line x1="181" y1="84" x2="181" y2="92" stroke-width="1"/>
     <!-- Moving tuner indicator — starts at house (x=35) -->
     <line id="tuner-indicator" x1="35" y1="62" x2="35" y2="83" stroke-width="1.5"/>
+    <!-- Noise canvas inset inside tuner strip -->
+    <foreignObject x="25" y="58" width="166" height="34">
+      <canvas xmlns="http://www.w3.org/1999/xhtml" id="tuner-canvas" width="166" height="34" style="display:block"></canvas>
+    </foreignObject>
+    <!-- Crisp genre text on top of canvas -->
+    <text id="tuner-display" x="108" y="75" text-anchor="middle" dominant-baseline="middle"
+          style="fill:white;stroke:none;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:900;letter-spacing:1px">HOUSE</text>
 
-    <!-- Disc Break logo top-right -->
+    <!-- Preset buttons between tuner and logo -->
+    <circle cx="213" cy="63" r="7" stroke-width="1.5"/>
+    <circle cx="213" cy="85" r="7" stroke-width="1.5"/>
+
+    <!-- Disc Break logo top-right — right edge aligned with speaker grille (x=332) -->
     <image href="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif"
-           x="206" y="58" width="134" height="36" preserveAspectRatio="xMidYMid meet"/>
+           x="248" y="56" width="84" height="40" preserveAspectRatio="xMidYMid meet"/>
 
     <!-- Speaker grille (right side) -->
     <line x1="200" y1="112" x2="332" y2="112" stroke-width="1.5"/>
@@ -1247,7 +1258,7 @@ vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
 // ── SPLASH DIAL ──
 (function() {
   const svgNS = 'http://www.w3.org/2000/svg';
-  const cx = 105, cy = 175, outerR = 62, innerR = 22, labelR = 78;
+  const cx = 105, cy = 175, outerR = 62, innerR = 22;
   const genres = [
     { angle: 330, label: 'house' },
     { angle: 30,  label: 'latin' },
@@ -1259,12 +1270,14 @@ vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
     { angle: 300, label: 'disco' },
   ];
   const majorAngles = genres.map(g => g.angle);
-  // Notch x positions matching genre order (left→right in tuner strip)
   const notchX = [35, 57, 79, 101, 123, 145, 167, 181];
-  let genreLabelEls = [];
   let currentIdx = 0;
   let currentAngle = 330;
   let currentNotchX = notchX[0];
+  let currentGenreText = 'HOUSE';
+  let noiseIntensity = 0.18;
+  let targetIntensity = 0.18;
+  let noiseAnimFrame;
   let dialInterval;
 
   function buildDial() {
@@ -1272,7 +1285,7 @@ vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
     const anchor = document.getElementById('splash-needle-anchor');
     if (!svg || !anchor) return;
 
-    // Dial tick marks every 15°
+    // Dial tick marks every 15° (no genre labels)
     for (let θ = 0; θ < 360; θ += 15) {
       const isMajor = majorAngles.includes(θ);
       const rInner = isMajor ? outerR - 9 : outerR - 4;
@@ -1286,20 +1299,6 @@ vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
       line.setAttribute('stroke-width', isMajor ? '1.5' : '0.8');
       svg.insertBefore(line, anchor);
     }
-
-    // Genre labels — first one (house) starts bold
-    genres.forEach(({ angle, label }, i) => {
-      const rad = angle * Math.PI / 180;
-      const text = document.createElementNS(svgNS, 'text');
-      text.setAttribute('x', (cx + labelR * Math.sin(rad)).toFixed(1));
-      text.setAttribute('y', (cy - labelR * Math.cos(rad)).toFixed(1));
-      text.setAttribute('text-anchor', 'middle');
-      text.setAttribute('dominant-baseline', 'middle');
-      text.style.cssText = `fill:white;stroke:none;font-family:'Montserrat',sans-serif;font-size:8.5px;font-style:italic;font-weight:${i === 0 ? 900 : 400}`;
-      text.textContent = label;
-      svg.insertBefore(text, anchor);
-      genreLabelEls.push(text);
-    });
 
     // Needle group on top
     const needle = document.createElementNS(svgNS, 'g');
@@ -1315,6 +1314,29 @@ vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
     stem.setAttribute('stroke-linecap', 'round');
     needle.appendChild(tip); needle.appendChild(stem);
     svg.appendChild(needle);
+    startNoiseLoop();
+  }
+
+  function startNoiseLoop() {
+    const canvas = document.getElementById('tuner-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    function frame() {
+      const img = ctx.createImageData(w, h);
+      const d = img.data;
+      for (let i = 0; i < d.length; i += 4) {
+        if (Math.random() < noiseIntensity) {
+          const v = Math.floor(Math.random() * 255);
+          d[i] = d[i+1] = d[i+2] = v;
+          d[i+3] = Math.floor(Math.random() * 220 * noiseIntensity);
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+      noiseIntensity += (targetIntensity - noiseIntensity) * 0.055;
+      noiseAnimFrame = requestAnimationFrame(frame);
+    }
+    frame();
   }
 
   function easeOutBack(x) {
@@ -1322,12 +1344,34 @@ vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
     return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
   }
 
+  const glitchChars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789#@!%&';
+  function glitchToText(target) {
+    const el = document.getElementById('tuner-display');
+    if (!el) return;
+    const upper = target.toUpperCase();
+    let elapsed = 0;
+    const iv = setInterval(() => {
+      elapsed += 55;
+      if (elapsed < 300) {
+        el.textContent = Array.from({length: upper.length}, () =>
+          glitchChars[Math.floor(Math.random() * glitchChars.length)]
+        ).join('');
+      } else {
+        const locked = Math.min(Math.ceil((elapsed - 300) / 60), upper.length);
+        el.textContent = upper.slice(0, locked) +
+          Array.from({length: upper.length - locked}, () =>
+            glitchChars[Math.floor(Math.random() * glitchChars.length)]
+          ).join('');
+        if (locked >= upper.length) { el.textContent = upper; clearInterval(iv); }
+      }
+    }, 55);
+  }
+
   function animateIndicator(toIdx) {
     const fromX = currentNotchX;
     const toX = notchX[toIdx];
-    const isWrap = toIdx < (toIdx === 0 ? 1 : currentIdx); // going back to start
-    const duration = (fromX > toX) ? 160 : 280; // fast leftward sweep, sprung rightward
-    const ease = (fromX > toX) ? (t => t) : easeOutBack;
+    const duration = fromX > toX ? 160 : 280;
+    const ease = fromX > toX ? (t => t) : easeOutBack;
     const start = performance.now();
     const ind = document.getElementById('tuner-indicator');
     if (!ind) { currentNotchX = toX; return; }
@@ -1341,14 +1385,16 @@ vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
   }
 
   function snapNeedle() {
-    const prevIdx = currentIdx;
     currentIdx = (currentIdx + 1) % genres.length;
+    currentGenreText = genres[currentIdx].label.toUpperCase();
 
-    // Update genre label weights
-    if (genreLabelEls[prevIdx]) genreLabelEls[prevIdx].style.fontWeight = '400';
-    if (genreLabelEls[currentIdx]) genreLabelEls[currentIdx].style.fontWeight = '900';
+    // Blast static then settle to background hum
+    noiseIntensity = 1.0;
+    targetIntensity = 0.18;
 
-    // Animate tuner indicator
+    // Glitch SVG text to new genre name
+    glitchToText(genres[currentIdx].label);
+
     animateIndicator(currentIdx);
 
     // Animate needle
@@ -1368,6 +1414,7 @@ vol.addEventListener("input", ()=>{ audio.volume=vol.value; });
 
   window.enterSite = function() {
     clearInterval(dialInterval);
+    cancelAnimationFrame(noiseAnimFrame);
     const splash = document.getElementById('splash');
     if (splash) { splash.classList.add('fade-out'); setTimeout(() => splash.remove(), 800); }
   };
