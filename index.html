@@ -493,9 +493,12 @@ footer {
   .player-show { font-size: 14px; }
 
   /* HERO */
-  .hero { grid-template-columns: 1fr; gap: 24px; padding: 32px 16px; }
+  .hero { grid-template-columns: 1fr; gap: 24px; padding: 32px 16px; justify-items: center; }
+  .hero-left { align-items: center; }
+  .hero-right { text-align: center; }
   .dj-circle-hero { width: 130px; height: 130px; }
   .hero-show-name { font-size: clamp(28px, 8vw, 48px); }
+  .btn-listen, .btn-discord { align-self: center; }
 
   /* HOME PANELS */
   .home-grid { grid-template-columns: 1fr; }
