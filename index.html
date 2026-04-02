@@ -58,8 +58,6 @@ nav {
 }
 .nav-logo { cursor: pointer; display: flex; align-items: center; padding: 0 28px; border-right: var(--border); flex-shrink: 0; }
 .nav-logo img { height: 54px; width: auto; display: block; }
-.nav-logo-right { display: flex; align-items: center; padding: 0 24px; border-left: var(--border); flex-shrink: 0; }
-.nav-logo-right img { height: 44px; width: auto; display: block; }
 .nav-links { display: flex; gap: 0; list-style: none; align-items: center; padding: 0 8px; }
 .nav-links a {
   display: block;
@@ -88,7 +86,8 @@ nav {
   padding: 56px 32px 48px;
   border-bottom: var(--border);
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto;
+  justify-content: center;
   gap: 48px;
   align-items: center;
 }
@@ -147,9 +146,11 @@ a.btn-listen { text-decoration: none; }
 .qs-day { color: var(--cream-dim); font-size: 11px; letter-spacing: 1px; }
 
 /* ── SCHEDULE ── */
-.page-header { padding: 48px 32px 32px; border-bottom: var(--border); width: 100%; max-width: 100%; }
+.page-header { padding: 48px 32px 32px; border-bottom: var(--border); width: 100%; max-width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.page-header-text { flex: 1; }
 .page-header h1 { font-size: clamp(48px, 7vw, 96px); font-weight: 900; font-style: italic; line-height: 0.95; color: var(--cream); }
 .page-header p { color: var(--cream-dim); font-size: 15px; font-style: italic; margin-top: 10px; }
+.page-header-logo { height: 90px; width: auto; display: block; flex-shrink: 0; margin-left: 32px; }
 .vault-banner {
   padding: 14px 32px; border-bottom: var(--border);
   display: flex; align-items: center; gap: 16px; background: var(--cream-faint);
@@ -333,7 +334,7 @@ footer {
 /* ── PLAYER BAR ── */
 #player-bar {
   flex: 1;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center;
   padding: 0 24px; gap: 16px;
   border-right: var(--border);
 }
@@ -475,7 +476,6 @@ footer {
   nav { height: auto; min-height: 84px; padding: 18px 16px; align-items: center; }
   .nav-logo { border-right: none; padding: 0; }
   .nav-logo img { width: 94px; height: auto; }
-  .nav-logo-right { display: none; }
   .nav-links { display: none; }
   .hamburger { display: flex; margin-left: auto; }
 
@@ -504,6 +504,7 @@ footer {
   /* SCHEDULE */
   .page-header { padding: 28px 16px 20px; }
   .page-header h1 { font-size: 36px; }
+  .page-header-logo { display: none; }
   .vault-banner { padding: 12px 16px; }
   .schedule-cols { grid-template-columns: 1fr; }
   .sched-col { border-right: none; border-bottom: var(--border); padding: 24px 16px; }
@@ -583,9 +584,6 @@ footer {
     <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
     <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
-  <div class="nav-logo-right" onclick="showPage('home')">
-    <img src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio">
-  </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
@@ -638,8 +636,11 @@ footer {
 <!-- ══════════════ SCHEDULE ══════════════ -->
 <div class="page" id="page-schedule">
   <div class="page-header">
-    <h1>schedule</h1>
-    <p>All times GMT · DJs Fri–Sun · Vault Mixes & Curated Playlists Mon–Thu</p>
+    <div class="page-header-text">
+      <h1>schedule</h1>
+      <p>All times GMT · DJs Fri–Sun · Vault Mixes & Curated Playlists Mon–Thu</p>
+    </div>
+    <img class="page-header-logo" src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio">
   </div>
   <div class="vault-banner">
     <span class="vault-tag">Mon – Thu</span>
@@ -651,8 +652,11 @@ footer {
 <!-- ══════════════ CONTRIBUTORS ══════════════ -->
 <div class="page" id="page-contributors">
   <div class="page-header">
-    <h1>contributors</h1>
-    <p>introducing our djs and selectors.</p>
+    <div class="page-header-text">
+      <h1>contributors</h1>
+      <p>introducing our djs and selectors.</p>
+    </div>
+    <img class="page-header-logo" src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio">
   </div>
   <div class="contributors-grid" id="contributorsGrid"></div>
 </div>
@@ -660,8 +664,11 @@ footer {
 <!-- ══════════════ EVENTS ══════════════ -->
 <div class="page" id="page-events">
   <div class="page-header">
-    <h1>events</h1>
-    <p>disc break live events & parties.</p>
+    <div class="page-header-text">
+      <h1>events</h1>
+      <p>disc break live events & parties.</p>
+    </div>
+    <img class="page-header-logo" src="https://irp.cdn-website.com/c4da5bb4/dms3rep/multi/TRIMMED-16e6c700.gif" alt="Disc Break Radio">
   </div>
   <div class="events-section" id="upcomingSection">
     <div class="events-section-title">upcoming</div>
