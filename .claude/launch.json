@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "Static Site",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8888"],
+      "runtimeExecutable": "ruby",
+      "runtimeArgs": ["-run", "-e", "httpd", "/Users/markwhiteside/Documents/Marks Own Bits/discbreak-radio/.claude/worktrees/vibrant-johnson", "-p", "8888"],
       "port": 8888
     }
   ]
