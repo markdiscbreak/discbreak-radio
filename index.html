@@ -117,11 +117,12 @@ nav {
   padding: 12px 28px;
   font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 900; font-style: italic;
   letter-spacing: 1px; cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  display: inline-flex; align-items: center; gap: 10px;
+  transition: opacity 0.2s;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
 }
-.btn-listen:hover { background: var(--cream); color: var(--green); }
+.btn-listen:hover { opacity: 0.7; }
 a.btn-listen { text-decoration: none; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
 
 .home-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--border); }
 .home-panel { padding: 40px 32px; border-right: var(--border); display: flex; flex-direction: column; justify-content: center; }
@@ -351,9 +352,9 @@ footer {
 #playBtn {
   width: 44px; height: 44px; border: var(--border); background: transparent;
   color: var(--cream); font-size: 16px; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: background 0.2s, color 0.2s; flex-shrink: 0;
+  cursor: pointer; transition: opacity 0.2s; flex-shrink: 0;
 }
-#playBtn:hover, #playBtn.playing { background: var(--cream); color: var(--green); }
+#playBtn:hover { opacity: 0.7; }
 .spinning { animation: spin 5s linear infinite; }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
@@ -501,7 +502,8 @@ footer {
   .hero-left { align-items: center; }
   .hero-right { text-align: center; }
   .hero-right .on-air-label { justify-content: center; }
-  .hero-right > div[style] { justify-content: center; }
+  .hero-btns { flex-direction: column; align-items: center; }
+  .hero-btns .btn-listen { width: 210px; }
   .dj-circle-hero { width: 130px; height: 130px; }
   .hero-show-name { font-size: clamp(28px, 8vw, 48px); }
 
@@ -699,7 +701,7 @@ footer {
       <div class="on-air-label"><span class="live-dot"></span> On Air Now</div>
       <div class="hero-show-name" id="heroShowName">Loading...</div>
       <div class="hero-tagline">just good music · 24/7</div>
-      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <div class="hero-btns">
         <button class="btn-listen" onclick="togglePlay()">
           <svg class="icon-play" viewBox="0 0 16 16" width="11" height="11" fill="currentColor" stroke="none" xmlns="http://www.w3.org/2000/svg"><polygon points="3,1 14,8 3,15"/></svg>
           <svg class="icon-pause" viewBox="0 0 16 16" width="11" height="11" fill="currentColor" stroke="none" xmlns="http://www.w3.org/2000/svg" style="display:none"><rect x="2" y="1" width="4" height="14" rx="1"/><rect x="10" y="1" width="4" height="14" rx="1"/></svg>
