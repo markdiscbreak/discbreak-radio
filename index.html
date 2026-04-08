@@ -476,13 +476,16 @@ footer {
 
 
 /* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  /* NAV */
+/* Hamburger nav at tablet landscape and below */
+@media (max-width: 1024px) {
   nav { height: auto; min-height: 84px; padding: 18px 16px; align-items: center; }
   .nav-logo { border-right: none; padding: 0; }
   .nav-logo img { width: 94px; height: auto; }
   .nav-links { display: none; }
   .hamburger { display: flex; margin-left: auto; }
+}
+
+@media (max-width: 768px) {
 
   /* PLAYER — restore to fixed bottom on mobile */
   #player-bar {
