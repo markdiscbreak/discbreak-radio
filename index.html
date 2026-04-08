@@ -1047,7 +1047,7 @@ function closeProfile() {
 }
 
 function openProfileByName(name) {
-  const match = CONTRIBUTORS.find(c => c.name.toLowerCase() === name.toLowerCase() && c.active);
+  const match = CONTRIBUTORS.find(c => c.name.toLowerCase() === name.toLowerCase());
   if (match) openProfile(match);
 }
 
