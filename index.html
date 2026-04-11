@@ -695,7 +695,7 @@ footer {
     <div class="hero-right">
       <div class="on-air-label"><span class="live-dot"></span> On Air Now</div>
       <div class="hero-show-name" id="heroShowName">Loading...</div>
-      <div class="hero-tagline">just good music · 24/7</div>
+      <div class="hero-tagline" id="heroTagline">just good music · 24/7</div>
       <div class="hero-btns">
         <button class="btn-listen" onclick="togglePlay()">
           <svg class="icon-play" viewBox="0 0 16 16" width="11" height="11" fill="currentColor" stroke="none" xmlns="http://www.w3.org/2000/svg"><polygon points="3,1 14,8 3,15"/></svg>
@@ -1006,6 +1006,29 @@ async function fetchShows() {
 }
 fetchShows();
 setInterval(updateNowPlaying, 10000);
+
+// ── NOW PLAYING TRACK METADATA ──
+const DAYTIME_SHOWS = ['daytime jams', 'curated playlists'];
+
+async function updateTrackMeta() {
+  const cur = getCurrentShow();
+  const tagline = document.getElementById('heroTagline');
+  if (!tagline) return;
+  const isDaytime = cur && DAYTIME_SHOWS.some(n => cur.show.toLowerCase().includes(n));
+  if (!isDaytime) {
+    tagline.textContent = 'just good music · 24/7';
+    return;
+  }
+  try {
+    const res = await fetch('/.netlify/functions/nowplaying');
+    const data = await res.json();
+    tagline.textContent = data.songtitle || 'just good music · 24/7';
+  } catch(e) {
+    tagline.textContent = 'just good music · 24/7';
+  }
+}
+updateTrackMeta();
+setInterval(updateTrackMeta, 30000);
 
 // ── CONTRIBUTORS ──
 function openProfile(c) {
