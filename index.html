@@ -993,6 +993,7 @@ function updateNowPlaying() {
   } else if (cur && cur.djName) {
     document.getElementById('heroCircle').onclick = () => openProfileByName(cur.djName);
   }
+  updateTrackMeta();
 }
 
 async function fetchShows() {
