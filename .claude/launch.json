@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Static Site",
+      "runtimeExecutable": "ruby",
+      "runtimeArgs": ["-run", "-e", "httpd", "/Users/markwhiteside/Documents/Marks Own Bits/discbreak-radio/.claude/worktrees/vibrant-johnson", "-p", "8888"],
+      "port": 8888
+    }
+  ]
+}
