@@ -17,9 +17,11 @@ exports.handler = async function() {
     })
   });
   const data = await response.json();
+  const first = data?.results?.[0];
+  const broadcastingFrom = first?.properties?.['Broadcasting From']?.rich_text?.[0]?.plain_text || null;
   return {
     statusCode: 200,
     headers: { "Access-Control-Allow-Origin": "*" },
-    body: JSON.stringify(data)
+    body: JSON.stringify({ ...data, broadcastingFrom })
   };
 }
