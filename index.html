@@ -574,58 +574,28 @@ footer {
 }
 #tune-in-btn:hover { background: var(--cream); color: var(--green); }
 
-/* ── LIVE VIDEO BROADCAST OVERLAY ── */
-#live-video {
-  position: fixed; inset: 0; z-index: 200;
-  background: var(--green);
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.6s ease;
-  overflow: hidden;
+/* ── LIVE BROADCAST SECTION ── */
+#live-section { display: none; width: 100%; border-bottom: var(--border); }
+#live-section.active { display: block; }
+.live-section-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 32px; border-bottom: var(--border);
+  font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--cream-dim);
 }
-#live-video.visible { opacity: 1; pointer-events: auto; }
-#live-video .video-frame {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 24px;
-}
-#live-video iframe {
-  width: 100%; max-width: 1600px;
-  aspect-ratio: 16 / 9;
-  border: var(--border); background: #000; display: block;
-}
-#live-video .video-caption {
-  color: var(--cream);
-  font-family: 'Montserrat', sans-serif;
-  font-style: italic; font-weight: 900; font-size: 14px;
-  letter-spacing: 1px; text-transform: uppercase;
-  margin-top: 20px; text-align: center; max-width: 90%;
-  display: flex; align-items: center; gap: 12px; justify-content: center;
-}
-#live-video .live-pill {
+.live-video-wrap { width: 100%; background: #000; }
+.live-video-wrap iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
+.live-pill {
   display: inline-flex; align-items: center; gap: 6px;
   background: #d94141; color: #fff;
-  padding: 4px 10px; border-radius: 3px;
-  font-size: 11px; letter-spacing: 1.5px;
+  padding: 3px 8px; border-radius: 3px;
+  font-size: 10px; letter-spacing: 1.5px;
 }
-#live-video .live-pill::before {
-  content: ""; width: 8px; height: 8px;
+.live-pill::before {
+  content: ""; width: 7px; height: 7px;
   background: #fff; border-radius: 50%;
   animation: blink 1.4s ease infinite;
 }
-#live-video .unmute-btn {
-  position: absolute; top: 24px; right: 24px;
-  background: var(--cream); color: var(--green);
-  border: var(--border);
-  padding: 10px 18px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900; font-style: italic;
-  font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
-  cursor: pointer; z-index: 210;
-  transition: background 0.2s, color 0.2s;
-}
-#live-video .unmute-btn:hover { background: var(--green); color: var(--cream); }
-#live-video .unmute-btn.hidden { display: none; }
 body.live-broadcasting #player-bar {
   opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
 }
@@ -635,7 +605,6 @@ body.live-broadcasting #player-bar {
 
 <!-- SPLASH -->
 <div id="splash">
-  <img src="prince.png" alt="Prince" style="width: min(55vw, 220px); height: auto; border-radius: 50%; display: block;">
   <svg id="radio-svg" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="white" stroke-linecap="round">
 
     <!-- Antenna -->
@@ -743,6 +712,20 @@ body.live-broadcasting #player-bar {
 
 <!-- ══════════════ HOME ══════════════ -->
 <div class="page active" id="page-home">
+
+  <!-- ── LIVE BROADCAST ── -->
+  <div id="live-section">
+    <div class="live-section-header">
+      <span class="live-pill">LIVE</span>
+      <span id="liveCaption">currently broadcasting</span>
+    </div>
+    <div class="live-video-wrap">
+      <iframe id="liveIframe" src=""
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+
   <div class="hero">
     <div class="hero-left">
       <div class="dj-circle-hero" id="heroCircle">
@@ -939,19 +922,6 @@ body.live-broadcasting #player-bar {
   <source src="https://usa19.fastcast4u.com:8340/;?type=http&nocache=1774562428" type="audio/mpeg">
 </audio>
 
-<!-- ── LIVE VIDEO BROADCAST OVERLAY ── -->
-<div id="live-video" aria-hidden="true">
-  <button class="unmute-btn hidden" id="unmuteBtn">tap to unmute</button>
-  <div class="video-frame">
-    <iframe id="liveIframe" src=""
-      allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
-      allowfullscreen></iframe>
-    <div class="video-caption">
-      <span class="live-pill">LIVE</span>
-      <span id="liveCaption">currently broadcasting</span>
-    </div>
-  </div>
-</div>
 
 <script>
 let CONTRIBUTORS = [];
@@ -1526,10 +1496,9 @@ btn.addEventListener("click", togglePlay);
 
 // ── LIVE VIDEO BROADCAST ──
 (function () {
-  const videoOverlay = document.getElementById('live-video');
+  const liveSection = document.getElementById('live-section');
   const iframe = document.getElementById('liveIframe');
   const caption = document.getElementById('liveCaption');
-  const unmuteBtn = document.getElementById('unmuteBtn');
 
   let currentVideoId = null;
 
@@ -1553,38 +1522,30 @@ btn.addEventListener("click", togglePlay);
       if (data.broadcastingFrom) {
         caption.textContent = `currently broadcasting from ${data.broadcastingFrom}`;
       }
-    } catch (err) { /* silent */ }
+    } catch (err) {}
   }
 
   function showLiveVideo(videoId) {
-    if (currentVideoId === videoId && videoOverlay.classList.contains('visible')) return;
+    if (currentVideoId === videoId && liveSection.classList.contains('active')) return;
     currentVideoId = videoId;
 
-    // Pause audio using the existing toggle if it's playing
     if (typeof isPlaying !== 'undefined' && isPlaying) togglePlay();
 
-    iframe.src = `https://iframe.videodelivery.net/${videoId}?autoplay=true&muted=true&preload=auto`;
+    // controls=true lets the user unmute via the native player UI
+    iframe.src = `https://iframe.videodelivery.net/${videoId}?autoplay=true&muted=true&controls=true&preload=auto`;
     fetchVenueCaption();
 
-    videoOverlay.setAttribute('aria-hidden', 'false');
-    videoOverlay.classList.add('visible');
+    liveSection.classList.add('active');
     document.body.classList.add('live-broadcasting');
-    unmuteBtn.classList.remove('hidden');
+    showPage('home');
   }
 
   function hideLiveVideo() {
-    if (!videoOverlay.classList.contains('visible')) return;
-    videoOverlay.classList.remove('visible');
-    videoOverlay.setAttribute('aria-hidden', 'true');
+    if (!liveSection.classList.contains('active')) return;
+    liveSection.classList.remove('active');
     document.body.classList.remove('live-broadcasting');
-    setTimeout(() => { iframe.src = ''; currentVideoId = null; }, 700);
+    setTimeout(() => { iframe.src = ''; currentVideoId = null; }, 300);
   }
-
-  unmuteBtn.addEventListener('click', () => {
-    if (!currentVideoId) return;
-    iframe.src = `https://iframe.videodelivery.net/${currentVideoId}?autoplay=true&muted=false&preload=auto`;
-    unmuteBtn.classList.add('hidden');
-  });
 
   checkLiveStatus();
   setInterval(checkLiveStatus, 30000);
