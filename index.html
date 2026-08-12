@@ -583,8 +583,17 @@ footer {
   font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
   color: var(--cream-dim);
 }
-.live-video-wrap { width: 100%; background: #000; }
-.live-video-wrap iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
+.live-video-wrap {
+  background: var(--green);
+  padding: 24px 32px;
+  display: flex; justify-content: center;
+}
+.live-video-wrap iframe {
+  display: block;
+  width: min(100%, 900px, calc((100vh - 200px) * 16 / 9));
+  aspect-ratio: 16/9;
+  border: none;
+}
 .live-pill {
   display: inline-flex; align-items: center; gap: 6px;
   background: #d94141; color: #fff;
@@ -598,6 +607,9 @@ footer {
 }
 body.live-broadcasting #player-bar {
   opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+}
+body.live-broadcasting .hero {
+  display: none;
 }
 </style>
 </head>
